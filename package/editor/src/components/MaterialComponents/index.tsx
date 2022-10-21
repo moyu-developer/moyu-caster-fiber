@@ -15,9 +15,9 @@ export const MaterialComponents = () => {
     <Typography.Title level={5} >组件列表</Typography.Title>
     <Space wrap >
       {
-        Object.keys(MaterialsData).map((key) => {
-          const Material = MaterialsData?.Text
-          // <Button ref={ref=> connectors.create(ref as HTMLElement, <MaterialButton  size="small" >111</MaterialButton>)} >Button</Button>
+        Object.keys(MaterialsData).map((key: string) => {
+          const dataKey = key as "Container" | "Text"
+          const Material: any = MaterialsData?.[dataKey]
           return (
             <MaterialItem ref={ref=> connectors.create(ref as HTMLElement, React.createElement(Material))} text={key}  />
           )
