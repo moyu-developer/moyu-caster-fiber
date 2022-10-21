@@ -12,7 +12,7 @@ export interface TextProps {
   textAlign?: React.CSSProperties["textAlign"];
 }
 
-export const Text: MaterialFunctionComponent<TextProps> = ({text, fontSize, textAlign}) => {
+export const Text: MaterialFunctionComponent<TextProps> = ({text = "文字", fontSize, textAlign}) => {
   const { connectors: {connect, drag}, hasSelectedNode, hasDraggedNode, actions: {setProp} } = useNode((state) => {
     return ({
       hasSelectedNode: state.events.selected,
