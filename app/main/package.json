@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "author": "wangly19 <1418202350@qq.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@caster-fiber/editor": "workspace:^0.0.1",
+    "minireset.css": "^0.0.7",
+    "react-contenteditable": "^3.3.6"
+  }
+}
