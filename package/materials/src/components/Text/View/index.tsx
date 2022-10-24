@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useNode } from '@craftjs/core'
+import { useNode } from "@craftjs/core";
 
-export interface MaterialFunctionComponent<P= any> extends FunctionComponent<P> {
-  craft?: any
+export interface MaterialFunctionComponent<P = any>
+  extends FunctionComponent<P> {
+  craft?: any;
 }
-
 
 export interface TextProps {
   text?: string;
@@ -12,24 +12,38 @@ export interface TextProps {
   textAlign?: React.CSSProperties["textAlign"];
 }
 
-export const Text: MaterialFunctionComponent<TextProps> = ({text = "文字", fontSize, textAlign}) => {
-  const { connectors: {connect, drag}, hasSelectedNode, hasDraggedNode, actions: {setProp} } = useNode((state) => {
-    return ({
+export const Text: MaterialFunctionComponent<TextProps> = ({
+  text = "文字",
+  fontSize,
+  textAlign,
+}) => {
+  const {
+    connectors: { connect, drag },
+    hasSelectedNode,
+    hasDraggedNode,
+    actions: { setProp },
+  } = useNode((state) => {
+    return {
       hasSelectedNode: state.events.selected,
       hasDraggedNode: state.events.dragged,
-    })
+    };
   });
 
   const [editable, setEditable] = useState(false);
 
-  useEffect(() => {!hasSelectedNode && setEditable(false)}, [hasSelectedNode]);
-  
+  useEffect(() => {
+    !hasSelectedNode && setEditable(false);
+  }, [hasSelectedNode]);
+
   return (
-      <div style={{
+    <div
+      style={{
         fontSize,
-        textAlign
-      }} ref={ref => connect(drag(ref as HTMLElement))} >
-        {text}
-      </div>
-  )
-}
+        textAlign,
+      }}
+      ref={(ref) => connect(drag(ref as HTMLElement))}
+    >
+      {text}
+    </div>
+  );
+};
