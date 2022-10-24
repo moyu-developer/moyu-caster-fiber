@@ -6,13 +6,14 @@ export interface MaterialFunctionComponent<P= any> extends FunctionComponent<P> 
 }
 
 export interface ContainerProps {
-  children?: ReactNode
+  children?: ReactNode,
+  height?: number;
 }
 
-export const Container: MaterialFunctionComponent<ContainerProps> = ({ children }) => {
+export const Container: MaterialFunctionComponent<ContainerProps> = ({ children, height }) => {
 
 
   const { connectors: {connect, drag} } = useNode();
   
-  return <div ref={ref=> connect(drag(ref as HTMLElement))} >{children}</div>
+  return <div style={{ height }}  ref={ref=> connect(drag(ref as HTMLElement))} >{children}</div>
 }

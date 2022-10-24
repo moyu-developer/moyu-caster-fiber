@@ -18,7 +18,16 @@ export default defineConfig({
       fileName: (format) => `main.${format}.js`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom', "@craftjs/core", "antd", "@ant-design/icons"],
+      external: [
+        "react",
+        "react-dom",
+        "@craftjs/core",
+        "antd",
+        "@ant-design/icons",
+        "@emotion/react",
+        "@emotion/styled",
+        "@emotion/css"
+      ],
       output: {
         globals: {
           react: "React",

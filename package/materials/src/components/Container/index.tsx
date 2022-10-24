@@ -2,12 +2,12 @@ import { Container } from './View'
 import { Settings } from './Settings'
 
 Container.craft = {
-  displayName: "Text",
+  displayName: "基础容器",
   rules: {
     canDrag: (node: any) => node.data.props.text != "Drag",
   },
   related: {
-    settings: Settings
+    settings: Settings,
   }
 }
 
