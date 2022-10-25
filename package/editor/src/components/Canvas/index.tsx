@@ -10,7 +10,7 @@ export const Canvas = () => {
       }}
     >
       <Frame>
-        <Element is={Container} canvas >
+        <Element is={Container} height="100%" canvas >
           <Text text="111" />
         </Element>
       </Frame>

@@ -2,14 +2,14 @@ import React, { ReactNode } from "react";
 import { Editor, useEditor } from "@craftjs/core";
 import { EmptyResult } from "../Empty";
 import useCreateStyles from "./styles";
-import { Button } from "antd";
+import { Button, Collapse, Divider, Form, Typography } from "antd";
 
 export interface PreferencePanesProps {
   children?: ReactNode;
 }
 
 export const PreferencePanes = (props: PreferencePanesProps) => {
-  const { panels } = useCreateStyles();
+  const { panels, title } = useCreateStyles();
 
   const { actions, setter } = useEditor<any>((state, query) => {
     const [currentNodeId] = state.events.selected;
@@ -36,13 +36,21 @@ export const PreferencePanes = (props: PreferencePanesProps) => {
 
   return (
     <div className={panels}>
+      <Typography.Title className={title} level={5} >
+        属性面板
+      </Typography.Title>
+      <Divider />
       {setter ? (
-        React.createElement(setter?.settings)
+        <Form onValuesChange={(v) => console.log(v)}>
+          {React.createElement(setter?.settings)}
+        </Form>
       ) : (
         <EmptyResult
           subTitle={`暂无设置， 点击选择画布区域中的组件可以打开快速组件设置面板`}
           extra={[
-            <Button key="noFound" type="primary">查找Setter</Button>
+            <Button key="noFound" type="primary">
+              查找Setter
+            </Button>,
           ]}
         />
       )}

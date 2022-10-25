@@ -19,7 +19,7 @@ export const MaterialComponents = () => {
           const dataKey = key as "Container" | "Text"
           const Material: any = MaterialsData?.[dataKey]
           return (
-            <MaterialItem ref={ref=> connectors.create(ref as HTMLElement, React.createElement(Material))} text={key}  />
+            <MaterialItem key={key} ref={ref=> connectors.create(ref as HTMLElement, React.createElement(Material))} text={key}  />
           )
         })
       }
