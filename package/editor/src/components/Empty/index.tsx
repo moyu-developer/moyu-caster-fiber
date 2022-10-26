@@ -13,7 +13,6 @@ export const EmptyResult: React.FC<ResultProps> = (props) => {
 }
 
 EmptyResult.defaultProps = {
-  title: '暂无内容',
   subTitle: "暂无内容描述",
-  status: "info"
+  status: "success"
 }
