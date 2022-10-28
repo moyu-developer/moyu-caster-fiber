@@ -7,6 +7,7 @@ export const Canvas = () => {
     <div
       style={{
         height: "100%",
+        width: 375
       }}
     >
       <Frame>
