@@ -1,20 +1,19 @@
-import { Collapse, CollapsePanelProps, Form, Input } from "antd";
+import { Collapse } from "antd";
 import { CaretUpOutlined } from "@ant-design/icons";
+import { FontSetter } from '@/setter/FontSetter'
+import { ContainerSetter } from '@/setter/ContainerSetter'
 
 export const Settings = () => {
   return (
     <Collapse
       expandIconPosition="end"
-      expandIcon={({ isActive }) => (
-        <CaretUpOutlined rotate={isActive ? 360 : 0} />
-      )}
       bordered={false}
+      // expandIcon={({ isActive }) => (
+      //   <CaretUpOutlined rotate={isActive ? 360 : 0} />
+      // )}
     >
-      <Collapse.Panel key="color" header="颜色设置">
-        <Form.Item label="name" name="name">
-          <Input />
-        </Form.Item>
-      </Collapse.Panel>
+      <FontSetter/>
+      <ContainerSetter/>
     </Collapse>
   );
 };
