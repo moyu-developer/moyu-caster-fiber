@@ -10,6 +10,10 @@ export const useStyles = () => {
       display: "grid",
       gridTemplateColumns: `1fr 1fr 1fr`,
       gap: token.sizeSpaceXS
-    })
+    }),
+    section: css({
+      width: "100%",
+      padding: token.paddingSM
+    }),
   })
 }
