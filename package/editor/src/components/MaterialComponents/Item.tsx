@@ -9,7 +9,6 @@ export interface MaterialItemProps {
 
 const styles = {
   body: css({
-    width: 100,
     cursor: "pointer"
   }),
 

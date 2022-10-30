@@ -10,8 +10,18 @@ export default () => {
 
   return ({
     list: css({
-      width: 232,
-      padding: token.paddingXS
+      height: '100%',
+      // display: "grid",
+      // gridTemplateRows: "1fr",
+      border: `1px solid ${token.colorBorderSecondary}`,
+    }),
+    title: css({
+      padding: token.paddingSM,
+      fontWeight: 500,
+      // borderBottom: `1px solid ${token.colorBorderSecondary}`
+    }),
+    segmented: css({
+      padding: `6px 12px`
     })
   })
 }
