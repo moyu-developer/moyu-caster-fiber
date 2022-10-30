@@ -14,6 +14,7 @@ export const useStyles = () => {
       display: "flex",
       alignItems: "center",
       padding: `0 ${token.paddingSM}px`,
+      justifyContent: "space-between"
     })
   })
 }
