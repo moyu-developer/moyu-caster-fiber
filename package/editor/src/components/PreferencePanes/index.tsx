@@ -36,24 +36,23 @@ export const PreferencePanes = (props: PreferencePanesProps) => {
 
   return (
     <div className={panels}>
-      <Typography.Title className={title} level={5} >
+      <Typography.Text className={title} >
         属性面板
-      </Typography.Title>
-      <Divider />
+      </Typography.Text>
       {setter ? (
-        <Form onValuesChange={(v) => console.log(v)}>
-          {React.createElement(setter?.settings)}
-        </Form>
-      ) : (
-        <EmptyResult
-          subTitle={`暂无设置， 点击选择画布区域中的组件可以打开快速组件设置面板`}
-          extra={[
-            <Button key="noFound" type="primary">
-              查找Setter
-            </Button>,
-          ]}
-        />
-      )}
+          <Form layout="vertical" onValuesChange={(v) => console.log(v)}>
+            {React.createElement(setter?.settings)}
+          </Form>
+        ) : (
+          <EmptyResult
+            subTitle={`暂无设置， 点击选择画布区域中的组件可以打开快速组件设置面板`}
+            extra={[
+              <Button key="noFound" type="primary">
+                查找Setter
+              </Button>,
+            ]}
+          />
+        )}
     </div>
   );
 };

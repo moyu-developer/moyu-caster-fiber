@@ -8,12 +8,14 @@ export default () => {
   return {
     panels: css({
       height: '100vh',
-      border: `1px solid ${token.colorBorderSecondary}`
+      display: "grid",
+      gridTemplateRows: "45px 1fr",
+      border: `1px solid ${token.colorBorderSecondary}`,
     }),
     title: css({
-      paddingTop: token.paddingSM,
-      paddingLeft: token.paddingSM,
-      paddingRight: token.paddingSM
+      padding: token.paddingSM,
+      fontWeight: 500,
+      borderBottom: `1px solid ${token.colorBorderSecondary}`
     })
   }
 }
