@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
+import {selectedStyles} from '@/extra/SelectedNode'
+import cs from 'classnames'
 
 export interface MaterialFunctionComponent<P = any>
   extends FunctionComponent<P> {
@@ -8,24 +10,23 @@ export interface MaterialFunctionComponent<P = any>
 
 export interface TextProps {
   text?: string;
-  fontSize?: string;
-  textAlign?: React.CSSProperties["textAlign"];
+  style?: React.CSSProperties
 }
 
 export const Text: MaterialFunctionComponent<TextProps> = ({
   text = "文字",
-  fontSize,
-  textAlign,
+  ...props
 }) => {
   const {
     connectors: { connect, drag },
     hasSelectedNode,
-    hasDraggedNode,
+    isHovered,
     actions: { setProp },
   } = useNode((state) => {
     return {
       hasSelectedNode: state.events.selected,
       hasDraggedNode: state.events.dragged,
+      isHovered: state.events.hovered,
     };
   });
 
@@ -37,13 +38,15 @@ export const Text: MaterialFunctionComponent<TextProps> = ({
 
   return (
     <div
-      style={{
-        fontSize,
-        textAlign,
-      }}
+      style={props.style}
+      className={cs({
+        [selectedStyles?.border]: hasSelectedNode,
+        [selectedStyles?.hover]: isHovered && !hasSelectedNode
+      })}
+      // className={hasSelectedNode ? selectedStyles?.border : undefined}
       ref={(ref) => connect(drag(ref as HTMLElement))}
     >
-      {text}
+    {text}
     </div>
   );
 };
