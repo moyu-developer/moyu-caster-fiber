@@ -26,7 +26,9 @@ export const Save = () => {
     <Space>
       <Dropdown placement="bottomCenter" overlay={menu}>
         <Typography.Link>
-          保存<DownOutlined/></Typography.Link>
+          保存
+          <DownOutlined />
+        </Typography.Link>
       </Dropdown>
       <Button type="primary" icon={<SendOutlined />}>
         部署
