@@ -10,7 +10,9 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
   ],
+  
   build: {
+    target: "esnext",
     lib: {
       entry: path.resolve(__dirname, "src/main.tsx"),
       name: "casterEditor",
@@ -26,7 +28,8 @@ export default defineConfig({
         "@ant-design/icons",
         "@emotion/react",
         "@emotion/styled",
-        "@emotion/css"
+        "@emotion/css",
+        "lodash"
       ],
       output: {
         globals: {
