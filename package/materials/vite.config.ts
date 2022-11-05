@@ -35,7 +35,8 @@ export default defineConfig({
         "@ant-design/icons",
         "@emotion/react",
         "@emotion/styled",
-        "@emotion/css"
+        "@emotion/css",
+        "lodash"
       ],
       output: {
         globals: {
