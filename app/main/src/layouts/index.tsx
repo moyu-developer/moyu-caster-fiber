@@ -21,11 +21,11 @@ export default function Layout() {
     <ConfigProvider
       theme={{
         token: {
-          radiusBase: 2,
         },
         components: {
           Collapse: {
             padding: token.paddingSM,
+            colorBorder: "none",
           },
           Typography: {
           },

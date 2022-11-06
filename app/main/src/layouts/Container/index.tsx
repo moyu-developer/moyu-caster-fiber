@@ -1,8 +1,7 @@
+import { Outlet } from 'umi';
 import { Avatar, Badge, Breadcrumb, Layout, Space } from 'antd';
 import AvatarMenu from './Avatar'
 import useStyles from './styles'
-import React from 'react';
-import { Outlet } from '@/.umi/exports';
 
 const { Content, Footer } = Layout;
 

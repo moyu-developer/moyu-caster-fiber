@@ -23,7 +23,8 @@ export default () => {
     logo: css({
       fontSize: token.fontSizeHeading4,
       margin: `16px 24px 16px 0`,
-      fontWeight: token.fontWeightStrong
+      // fontWeight: token.fontWeightStrong,
+      fontFamily: "Futura"
     }),
     content: css({
       height: "100%",
