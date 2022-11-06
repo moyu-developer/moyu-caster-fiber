@@ -1,0 +1,15 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "dumi dev"
+  },
+  "keywords": [],
+  "author": "wangly19",
+  "license": "ISC",
+  "devDependencies": {
+    "dumi": "2.0.0-beta.17"
+  }
+}
