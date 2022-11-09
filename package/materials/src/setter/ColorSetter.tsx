@@ -1,7 +1,9 @@
 import { HexColorPicker } from "react-colorful";
 import { CustomSetterFormItemProps } from "@/global";
-import { Popover, Button, Space } from "antd";
+import { Popover, Button, Space, theme, Typography, Tag, Input, message } from "antd";
 import { css } from "@emotion/css";
+
+const { useToken } = theme;
 
 const styles = {
   content: css({
@@ -31,34 +33,65 @@ const defaultColors = [
 export interface ColorSetterProps<T> extends CustomSetterFormItemProps<T> {}
 
 export const ColorSetter = (props: ColorSetterProps<string>) => {
+  const { token } = useToken();
+
+  const handleColorPickerValueChange = (v: string) => {
+
+    console.log(v, '/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/')
+
+    if ( props.onChange) {
+      props.onChange(v)
+    }
+  };
+
   return (
-    <Popover
-      title={props.value}
-      placement="bottom"
-      content={
-        <Space className={styles.content} direction="vertical">
-          <HexColorPicker color={props.value}  onChange={(v) =>  console.log(v)} />
-          <Space
-            style={{
-              width: "100%",
-            }}
-            wrap
-            size={[12, 12]}
-          >
-            {defaultColors.map((color) => (
-              <div
-                key={color}
-                style={{
-                  background: color,
-                }}
-                className={styles.tag}
-              />
-            ))}
+    <Space>
+      <Popover
+        title={props.value}
+        placement="bottom"
+        trigger="click"
+        content={
+          <Space className={styles.content} direction="vertical">
+            <HexColorPicker
+              color={props.value}
+              onChange={handleColorPickerValueChange}
+            />
+            <Space
+              style={{
+                width: "100%",
+              }}
+              wrap
+              size={[12, 12]}
+            >
+              {defaultColors.map((color) => (
+                <div
+                  key={color}
+                  style={{
+                    background: color,
+                    boxShadow:
+                      props.value === color ? token.boxShadowCard : undefined,
+                  }}
+                  className={styles.tag}
+                  onClick={() => handleColorPickerValueChange(color)}
+                />
+              ))}
+            </Space>
           </Space>
+        }
+      >
+        <Space>
+          <Button type="primary">选择颜色</Button>
         </Space>
-      }
-    >
-      <Button type="primary">选择颜色</Button>
-    </Popover>
+      </Popover>
+      {props.value ? (
+        <Input
+          maxLength={6}
+          min={6}
+          prefix={<Tag color={props.value}>HEX(#)</Tag>}
+          value={props.value.replace("#", "")}
+          onChange={(e) => handleColorPickerValueChange("#" + e.target.value)}
+        />
+      ) : null}
+    </Space>
   );
 };
