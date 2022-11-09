@@ -1,6 +1,7 @@
 import { useNode } from "@craftjs/core";
 import { FunctionComponent, ReactNode } from "react";
-import { SelectedNode } from "@/extra/SelectedNode";
+import { useStyles } from './useStyles'
+import cs from 'classnames'
 
 export interface MaterialFunctionComponent<P = any>
   extends FunctionComponent<P> {
@@ -18,15 +19,16 @@ export const Container: MaterialFunctionComponent<ContainerProps> = ({
   height,
   style,
 }) => {
+  const styles = useStyles()
   const {
     connectors: { connect, drag },
-    hasSelectedNode,
-    hasDraggedNode,
+    selected,
+    dragged,
     actions: { setProp },
   } = useNode((state) => {
     return {
-      hasSelectedNode: state.events.selected,
-      hasDraggedNode: state.events.dragged,
+      selected: state.events.selected,
+      dragged: state.events.dragged,
     };
   });
 

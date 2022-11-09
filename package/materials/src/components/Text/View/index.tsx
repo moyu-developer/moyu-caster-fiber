@@ -39,11 +39,7 @@ export const Text: MaterialFunctionComponent<TextProps> = ({
   return (
     <div
       style={props.style}
-      className={cs({
-        [selectedStyles?.border]: hasSelectedNode,
-        [selectedStyles?.hover]: isHovered && !hasSelectedNode
-      })}
-      // className={hasSelectedNode ? selectedStyles?.border : undefined}
+     
       ref={(ref) => connect(drag(ref as HTMLElement))}
     >
     {text}
