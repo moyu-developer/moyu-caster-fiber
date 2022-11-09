@@ -12,6 +12,7 @@ export const useStyles = () => {
       height: 30,
       marginTop: -29,
       fontSize: 12,
+      padding: `0 ${token.paddingSM}px`,
       display: "flex",
       justifyContent: "flex-start",
       alignItems: "center",

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useNode, useEditor } from "@craftjs/core";
 import ReactDOM from "react-dom";
-import { Portal } from "./Portal";
 import { useStyles } from "./useStyles";
+import { Space, Typography } from "antd";
+import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export const RenderNode = ({ render }: any) => {
   const currentRef = React.useRef<HTMLDivElement>(null);
@@ -17,18 +18,22 @@ export const RenderNode = ({ render }: any) => {
     isHover,
     dom,
     name,
+    isRootNode,
     moveable,
     deletable,
     connectors: { drag },
     parent,
+    node,
   } = useNode((node) => ({
     isHover: node.events.hovered,
+    isRootNode: query.node(id).isRoot(),
     dom: node.dom,
     name: node.data.custom.displayName || node.data.displayName,
     moveable: query.node(node.id).isDraggable(),
     deletable: query.node(node.id).isDeletable(),
     parent: node.data.parent,
     props: node.data.props,
+    node,
   }));
 
   React.useEffect(() => {
@@ -71,7 +76,7 @@ export const RenderNode = ({ render }: any) => {
 
   return (
     <React.Fragment>
-      {isHover || isActive
+      {isActive
         ? ReactDOM.createPortal(
             <div
               style={{
@@ -82,7 +87,13 @@ export const RenderNode = ({ render }: any) => {
               className={classes.portal}
               ref={currentRef}
             >
-              {name}
+              <Space>
+                {name}
+                {isRootNode ? null : <CopyOutlined onClick={() => actions.add(node, parent)} />}
+                {isRootNode ? null : (
+                  <DeleteOutlined onClick={() => actions.delete(id)} />
+                )}
+              </Space>
             </div>,
             document?.querySelector("#ViewPort") as Element
           )
