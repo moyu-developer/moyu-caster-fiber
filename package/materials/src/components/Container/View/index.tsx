@@ -1,7 +1,7 @@
 import { useNode } from "@craftjs/core";
 import { FunctionComponent, ReactNode } from "react";
+import { Box } from '@/atom/Box'
 import { useStyles } from './useStyles'
-import cs from 'classnames'
 
 export interface MaterialFunctionComponent<P = any>
   extends FunctionComponent<P> {
@@ -22,8 +22,6 @@ export const Container: MaterialFunctionComponent<ContainerProps> = ({
   const styles = useStyles()
   const {
     connectors: { connect, drag },
-    selected,
-    dragged,
     actions: { setProp },
   } = useNode((state) => {
     return {
@@ -33,11 +31,12 @@ export const Container: MaterialFunctionComponent<ContainerProps> = ({
   });
 
   return (
-    <div
-      style={{ height, background: "#FFF", ...style }}
-      ref={(ref) => connect(drag(ref as HTMLElement))}
+    <Box
+      height="100%"
+      // style={{ height, background: "#FFF", ...style }}
+      ref={(ref: HTMLDivElement) => connect(drag(ref))}
     >
       {children}
-    </div>
+    </Box>
   );
 };
