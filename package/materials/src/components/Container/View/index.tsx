@@ -16,13 +16,11 @@ export interface ContainerProps {
 
 export const Container: MaterialFunctionComponent<ContainerProps> = ({
   children,
-  height,
-  style,
+  ...styledProps
 }) => {
   const styles = useStyles()
   const {
     connectors: { connect, drag },
-    actions: { setProp },
   } = useNode((state) => {
     return {
       selected: state.events.selected,
@@ -32,9 +30,8 @@ export const Container: MaterialFunctionComponent<ContainerProps> = ({
 
   return (
     <Box
-      height="100%"
-      // style={{ height, background: "#FFF", ...style }}
       ref={(ref: HTMLDivElement) => connect(drag(ref))}
+      {...styledProps}
     >
       {children}
     </Box>
