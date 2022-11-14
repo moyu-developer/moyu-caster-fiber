@@ -1,11 +1,12 @@
 import { ContainerSetter } from '@/setter/ContainerSetter'
+import { SpaceGroupSetter } from '@/reference/SpaceGroup'
 import { Collapse } from 'antd'
-import { Fragment } from 'react'
 
 export const Settings = () => {
   return (
     <Collapse>
       <ContainerSetter/>
+      <SpaceGroupSetter/>
     </Collapse>
   )
 }
