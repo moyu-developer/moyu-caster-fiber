@@ -6,25 +6,28 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useRef } from "react";
 
 export interface ContenteditableSetterProps<T>
-  extends CustomSetterFormItemProps<T> {}
+  extends CustomSetterFormItemProps<T> {
+    validate?: RegExp
+  }
 
 export const ContenteditableSetter = (
-  props: ContenteditableSetterProps<string>
+  props: ContenteditableSetterProps<number>
 ) => {
-  const text = useRef<string>("");
+  const text = useRef<number>(0);
 
   const handleContentEditableValueChange = (evt: ContentEditableEvent) => {
-    text.current = evt.target.value;
+    text.current = Number(evt.target.value);
   };
 
   const handleContentEditableBlur = () => {
+
     if (!props.onChange) return;
-    props.onChange(text.current);
+    props.onChange(Number(text.current));
   };
 
   return (
     <ContentEditable
-      html={props.value || '0'}
+      html={String(props.value || 0)}
       tagName="div"
       onBlur={handleContentEditableBlur}
       onChange={handleContentEditableValueChange}
