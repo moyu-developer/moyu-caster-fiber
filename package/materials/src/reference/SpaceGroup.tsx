@@ -39,7 +39,7 @@ const classes = {
   }),
 };
 
-export const SpaceGroupSetter = (props: Partial<CollapsePanelProps>) => {
+export const SpaceGroupSettings = (props: Partial<CollapsePanelProps>) => {
   return (
     <Collapse.Panel {...props} key="SpaceGroupSetter" header="间距">
       <div className={classes.marginBox}>

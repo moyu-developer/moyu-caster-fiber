@@ -1,14 +1,14 @@
-import { ContainerSetter } from '@/setter/ContainerSetter'
-import { SpaceGroupSetter } from '@/reference/SpaceGroup'
-import { TypographyGroupSetter } from '@/reference/TypographyGroup'
+import { SpaceGroupSettings } from '@/reference/SpaceGroup'
+import { TypographyGroupSettings } from '@/reference/TypographyGroup'
+import { LayoutGroupSettings } from '@/reference/LayoutGroup'
 import { Collapse } from 'antd'
 
 export const Settings = () => {
   return (
     <Collapse>
-      <ContainerSetter/>
-      <SpaceGroupSetter/>
-      <TypographyGroupSetter/>
+      <SpaceGroupSettings/>
+      <TypographyGroupSettings/>
+      <LayoutGroupSettings/>
     </Collapse>
   )
 }
