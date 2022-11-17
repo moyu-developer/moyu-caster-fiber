@@ -1,14 +1,35 @@
-import {
-  Collapse,
-  CollapsePanelProps,
-  Form,
-  Slider,
-  Select,
-  InputNumber,
-} from "antd";
+import { Collapse, CollapsePanelProps, Form, Segmented, Select } from "antd";
 import { ColorSetter } from "@/setter/ColorSetter";
 import { InputNumberSetter } from "@/setter/InputNumberSetter";
 import { Box } from "@/atom/Box";
+import { toFirstUpperCase } from "@/utils";
+import { RemixIcon } from "@/atom/MoyuIcon";
+
+const OverflowOptions = ["auto", "scroll", "hidden", "visible"].map((v) => ({
+  label: toFirstUpperCase(v),
+  value: v,
+}));
+
+const OverflowSegmented = [
+  {
+    value: "auto",
+    icon: <RemixIcon type="icon-sticky-note-line" />,
+  },
+
+  {
+    value: "visible",
+    icon: <RemixIcon type="icon-eye-line" />,
+  },
+  {
+    value: "hidden",
+    icon: <RemixIcon type="icon-eye-off-line" />,
+  },
+
+  {
+    value: "scroll",
+    icon: <RemixIcon type="icon-fridge-fill" />,
+  },
+];
 
 export const fontWeightOptions = [
   400,
@@ -53,6 +74,44 @@ export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
           <InputNumberSetter precision={2} min={0} width="100%" />
         </Form.Item>
       </Box>
+      <Form.Item noStyle label="overflowX">
+        <Box width="100%" display="flex" justifyContent="space-between">
+          <Form.Item name="overflowX">
+            <Segmented
+              options={OverflowSegmented}
+              onResize={undefined}
+              onResizeCapture={undefined}
+            />
+          </Form.Item>
+
+          <Form.Item name="overflowX">
+            <Select
+              bordered={false}
+              defaultValue="auto"
+              options={OverflowOptions}
+            />
+          </Form.Item>
+        </Box>
+      </Form.Item>
+      <Form.Item label="overflowY">
+        <Box width="100%" display="flex" justifyContent="space-between">
+          <Form.Item name="overflowY">
+            <Segmented
+              options={OverflowSegmented}
+              onResize={undefined}
+              onResizeCapture={undefined}
+            />
+          </Form.Item>
+
+          <Form.Item name="overflowY">
+            <Select
+              bordered={false}
+              defaultValue="auto"
+              options={OverflowOptions}
+            />
+          </Form.Item>
+        </Box>
+      </Form.Item>
     </Collapse.Panel>
   );
 };
