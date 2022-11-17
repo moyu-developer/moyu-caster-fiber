@@ -6,9 +6,12 @@ import {
   Select,
   Segmented,
   SegmentedProps,
+  Button,
+  Space,
 } from "antd";
 import { toFirstUpperCase } from "@/utils";
 import { RemixIcon } from "@/atom/MoyuIcon";
+import { ShadowCheckBoxSetter } from '@/setter/ShadowCheckBoxSetter'
 import { Box } from "@/atom/Box";
 
 export const fontWeightOptions = [
@@ -21,7 +24,7 @@ export const fontWeightOptions = [
   `bold`,
   `normal`,
 ].map((k) => ({
-  label: typeof k === 'string' ? toFirstUpperCase(k) : k,
+  label: typeof k === "string" ? toFirstUpperCase(k) : k,
   value: k,
 }));
 
@@ -71,6 +74,7 @@ export const TypographyGroupSettings = (props: Partial<CollapsePanelProps>) => {
         gridColumnGap={20}
         gridTemplateColumns="1fr 1fr"
         display="grid"
+        
       >
         <Form.Item
           label="字体粗细"
@@ -80,14 +84,36 @@ export const TypographyGroupSettings = (props: Partial<CollapsePanelProps>) => {
           <Select placeholder="Normal" options={fontWeightOptions} />
         </Form.Item>
         <Form.Item
+          label="对齐方式"
+          name="textAlign"
+          tooltip="对齐方式对应CSS中的text-align属性"
+        >
+          <Segmented
+            options={FontAlignOptions}
+            onResize={undefined}
+            onResizeCapture={undefined}
+          />
+        </Form.Item>
+      </Box>
+      <Form.Item
         label="对齐方式"
-        name="textAlign"
         tooltip="对齐方式对应CSS中的text-align属性"
       >
-        <Segmented options={FontAlignOptions} onResize={undefined} onResizeCapture={undefined}/>
+        <Space>
+          <Form.Item name="textTransform" >
+            <ShadowCheckBoxSetter bindVal="uppercase" icon={<RemixIcon type="icon-superscript-2" />} />
+          </Form.Item>
+          <Form.Item name="fontWeight" >
+            <ShadowCheckBoxSetter bindVal="bold" icon={<RemixIcon type="icon-bold" />} />
+          </Form.Item>
+          <Form.Item name="textDecoration" >
+            <ShadowCheckBoxSetter bindVal="line-through" icon={<RemixIcon type="icon-strikethrough" />} />
+          </Form.Item>
+          <Form.Item name="textDecoration" >
+            <ShadowCheckBoxSetter bindVal="underline" icon={<RemixIcon type="icon-underline" />} />
+          </Form.Item>
+        </Space>
       </Form.Item>
-      </Box>
-      
     </Collapse.Panel>
   );
 };
