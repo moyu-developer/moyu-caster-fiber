@@ -20,6 +20,11 @@ export const useStyles = () => {
       color: token.colorBgBase
     }),
     selected: css({
+      '&::after': {
+        border: `1px solid ${token.colorPrimary} !important`,
+      }
+    }),
+    hovered: css({
       position: "relative",
       '&::after': {
         content: '""',
@@ -30,7 +35,7 @@ export const useStyles = () => {
         width: "100%",
         height: "100%",
         display: "block",
-        border: `1px solid ${token.colorPrimary}`,
+        border: `1px dashed ${token.colorPrimary}`,
       }
     })
   })

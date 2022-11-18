@@ -38,8 +38,9 @@ export const RenderNode = ({ render }: any) => {
 
   React.useEffect(() => {
     if (dom) {
-      if (isActive || isHover) dom.classList.add(classes.selected);
-      else dom.classList.remove(classes.selected);
+      if (isActive) dom.classList.add(classes.hovered, classes.selected);
+      if (isHover) dom.classList.add(classes.hovered)
+      else dom.classList.remove(classes.hovered, classes.selected);
     }
   }, [dom, isActive, isHover]);
 
