@@ -11,9 +11,6 @@ export default fp(async (fastify) => {
         version: "v1.0.0",
         description: "Testing the Fastify swagger API1111",
       },
-
-      host: "localhost",
-      schemes: ["http"],
       consumes: ["application/json"],
       produces: ["application/json"],
       tags: [
