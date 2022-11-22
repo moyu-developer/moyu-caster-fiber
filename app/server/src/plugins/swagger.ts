@@ -7,16 +7,12 @@ export default fp(async (fastify) => {
   void fastify.register(swagger, {
     swagger: {
       info: {
-        title: "API",
+        title: "Caster Fiber",
         version: "v1.0.0",
-        description: "Testing the Fastify swagger API1111",
+        description: "河狸搭建平台接口文档，使用Fastify打造的高性能API",
       },
       consumes: ["application/json"],
       produces: ["application/json"],
-      tags: [
-        { name: "architect", description: "User related end-points" },
-        { name: "code", description: "Code related end-points" },
-      ],
     },
   });
   void fastify.register(swaggerUI, {

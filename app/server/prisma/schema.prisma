@@ -11,8 +11,18 @@ datasource db {
 }
 
 
-model user {
+model User {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
+  name  String @unique
+  password String
+  avatar String?
+  origin Origin @relation(fields: [originType], references: [type])
+  originType Int
+  openId String? @unique
+}
+model Origin {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  type Int @unique
+  user User[]
 }
