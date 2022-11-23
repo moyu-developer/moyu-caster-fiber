@@ -15,15 +15,14 @@ const app: FastifyPluginAsync<AppOptions> = async (
   opts
 ): Promise<void> => {
   void fastify.register(cors);
-  //在这里放置您的自定义代码！
-
-  //请勿触摸以下线条
-
-  //这将加载插件中定义的所有插件
-
-  //这些应该是可重用的支持插件
-
-  //通过您的应用程序
+  fastify.setSerializerCompiler(({ schema, method, url, httpStatus }) => {
+    return (data) =>
+      JSON.stringify({
+        statusCode: httpStatus,
+        data,
+      });
+  });
+  
   void fastify.register(AutoLoad, {
     dir: join(__dirname, "plugins"),
     options: opts,
