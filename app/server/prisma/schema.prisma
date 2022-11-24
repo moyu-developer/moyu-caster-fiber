@@ -10,19 +10,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name  String @unique
-  password String
-  avatar String?
-  origin Origin @relation(fields: [originType], references: [type])
-  originType Int
-  openId String? @unique
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  password  String
+  avatar    String?
+  openId    String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  origin     Origin @relation(fields: [originType], references: [type])
+  originType Int    @default(1)
+
+  webSite WebSite[]
 }
+
 model Origin {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  type Int @unique
-  user User[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  type      Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User[]
+}
+
+enum TerminalEnv {
+  MOBILE
+  PC
+  PAD
+  CAR
+  WATCH
+}
+
+model WebSite {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  env       TerminalEnv @default(PC)
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String      @db.ObjectId
+  pageTable PageTable[]
+}
+
+enum PageTableStatus {
+  ONLINE
+  OFFLINE
+}
+
+model PageTable {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  name      String          @default("Blank")
+  state     String          @default("")
+  route     String
+  status    PageTableStatus
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  webSiteId String  @db.ObjectId
+  webSite   WebSite @relation(fields: [webSiteId], references: [id])
 }
