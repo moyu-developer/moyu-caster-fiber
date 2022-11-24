@@ -4,15 +4,12 @@ export const useStyles = () => {
   return ({
     login: css({
       height: "100vh",
-      display: "flex",
-    }),
-    brand: css({
-      flex: 1,
     }),
     form: css({
-      flex: 1,
+      height: '100%',
       display: "flex",
       alignItems: "center",
+      padding: `0 30px`
     })
   })
 }
