@@ -10,31 +10,11 @@ export default () => {
     layout: css({
       height: "100vh",
     }),
-    header: css({
-      display: "flex",
-      alignItems: "center",
-      height: 60,
-      padding: `0 60px`,
-      background: token.colorBgBase
-    }),
-    menu: css({
-      flex: 1,
-    }),
-    logo: css({
-      fontSize: token.fontSizeHeading4,
-      margin: `16px 24px 16px 0`,
-      // fontWeight: token.fontWeightStrong,
-      fontFamily: "Futura"
-    }),
     content: css({
-      height: "100%",
-      overflow: "auto",
-      display: "grid",
-      gridTemplateRows: "38px 1fr",
-      padding: '20px 60px'
-    }),
-    body: css({
-      background: token.colorBgBase,
+      padding: `25px 35px`,
+      display: 'grid',
+      gridTemplateRows: `35px 1fr`,
+      background: token.colorWhite
     })
   }
 }

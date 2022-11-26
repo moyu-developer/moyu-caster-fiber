@@ -9,6 +9,7 @@ const { useToken } = theme
 
 const whiteRoutes = ["/login"];
 
+
 export default function Layout() {
   const location = useLocation();
   const { token } = useToken()
