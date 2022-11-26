@@ -39,7 +39,6 @@ export const Text: MaterialFunctionComponent<TextProps> = ({
   return (
     <div
       style={props.style}
-     
       ref={(ref) => connect(drag(ref as HTMLElement))}
     >
     {text}
