@@ -10,7 +10,11 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
   ],
-  
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    }
+  },
   build: {
     target: "esnext",
     lib: {
@@ -29,7 +33,8 @@ export default defineConfig({
         "@emotion/react",
         "@emotion/styled",
         "@emotion/css",
-        "lodash"
+        "lodash",
+        "copy-to-clipboard"
       ],
       output: {
         globals: {
