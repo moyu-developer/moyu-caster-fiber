@@ -1,4 +1,5 @@
 import fp from "fastify-plugin";
+import { handleResponseSchema } from '../utils/handleResponse'
 
 export interface SupportPluginOptions {
   // Specify Support plugin options here
@@ -11,12 +12,13 @@ export default fp<SupportPluginOptions>(async (fastify, opts) => {
     return "hugs";
   });
 
-
+  fastify.decorate("handleResponseSchema", handleResponseSchema);
 });
 
 // When using .decorate you have to specify added properties for Typescript
 declare module "fastify" {
   export interface FastifyInstance {
     someSupport(): string;
+    handleResponseSchema(data: any): string;
   }
 }

@@ -24,7 +24,8 @@ const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   }>('/login', {
     schema: requestSchema
   }, async function (request, reply) {
-    const { username, password } = request.body
+    try {
+      const { username, password } = request.body
 
     // 查询用户信息
     const user = await fastify.prisma.user.findUnique({
@@ -50,6 +51,9 @@ const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
     return {
       token
+    }
+    } catch (error) {
+      throw error
     }
   })
 }
