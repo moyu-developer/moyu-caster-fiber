@@ -6,6 +6,13 @@ import swaggerUI from "@fastify/swagger-ui";
 export default fp(async (fastify) => {
   void fastify.register(swagger, {
     swagger: {
+      securityDefinitions: {
+        Authorization: {
+          type: "apiKey",
+          name: 'token',
+          in: 'header'
+        }
+      },
       info: {
         title: "Caster Fiber",
         version: "v1.0.0",

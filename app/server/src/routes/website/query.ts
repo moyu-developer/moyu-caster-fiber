@@ -1,10 +1,15 @@
-import { FastifyPluginAsync, FastifySchema } from "fastify";
-import { Type } from "@sinclair/typebox";
+import { FastifyPluginAsync } from "fastify";
+import { Static, Type } from "@sinclair/typebox";
 import { WebSiteDBSchema } from "./schema";
 
 const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
-  const requestSchema: FastifySchema = {
+  const requestSchema = {
     description: "查询站点信息内容",
+    security: [
+      {
+        apiKey: [],
+      },
+    ],
     tags: ["website"],
     summary: "站点列表信息",
     querystring: Type.Intersect([
@@ -25,14 +30,24 @@ const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       ),
     },
   };
-  fastify.get(
+  fastify.get<{
+    Querystring: Static<typeof requestSchema.querystring>;
+  }>(
     "/list",
     {
       schema: requestSchema,
       onRequest: [fastify.authenticate],
     },
     async function (request, reply) {
-      return 1;
+      const { current, pageSize, ...params } = request.query;
+      console.log(params, "params");
+      const rows = await fastify.prisma.webSite.findMany({
+        skip: (current - 1) * pageSize,
+        take: pageSize,
+      });
+      return {
+        rows,
+      };
     }
   );
 };

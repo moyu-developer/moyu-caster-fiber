@@ -4,13 +4,13 @@ import jwt, { JWT } from '@fastify/jwt'
 declare module 'fastify' {
   export interface FastifyInstance {
     jwt: JWT,
-    authenticate: any
+    authenticate: any,
   }
 }
 
 export default fp(async (fastify) => {
   fastify.register(jwt, {
-    secret: 'supersecret'
+    secret: 'supersecret',
   })
 
   fastify.decorate("authenticate", async (request: any, reply: any) => {
