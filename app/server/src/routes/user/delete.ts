@@ -1,8 +1,9 @@
 import { Static, Type } from "@sinclair/typebox";
 import { FastifyPluginAsync } from "fastify";
 
-const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const deleteRoute: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   const requestSchema = {
+    security: fastify.SECURITY,
     description: "通过用户id来删除用户信息",
     tags: ["user"],
     summary: "删除用户",
@@ -22,6 +23,7 @@ const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     "/delete/:id",
     {
       schema: requestSchema,
+      onRequest: [fastify.authenticate],
     },
     async function (request): Promise<any> {
       const id = request.params.id
@@ -37,4 +39,4 @@ const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   );
 };
 
-export default login;
+export default deleteRoute;

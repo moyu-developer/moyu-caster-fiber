@@ -2,7 +2,7 @@ import { Static, Type } from "@sinclair/typebox";
 import { FastifyPluginAsync } from "fastify";
 import { hashSync } from 'bcryptjs'
 
-const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const signupRoute: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   const requestSchema = {
     description: "创建用户信息",
     tags: ["user"],
@@ -53,4 +53,4 @@ const login: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   );
 };
 
-export default login;
+export default signupRoute;

@@ -7,12 +7,18 @@ export default fp(async (fastify) => {
   void fastify.register(swagger, {
     swagger: {
       securityDefinitions: {
-        Authorization: {
+        apiKey: {
           type: "apiKey",
-          name: 'token',
-          in: 'header'
-        }
+          name: "Authorization",
+          in: "header",
+        },
       },
+      tags: [
+        {name: 'user', description: '用户模块'},
+        { name: 'website', description: '站点模块' },
+        { name: 'app', description: '全局模块' },
+        { name: 'auth', description: '权限模块' }
+      ],
       info: {
         title: "Caster Fiber",
         version: "v1.0.0",
@@ -25,7 +31,7 @@ export default fp(async (fastify) => {
   void fastify.register(swaggerUI, {
     routePrefix: "/documentation",
     uiConfig: {
-      docExpansion: "full",
+      docExpansion: "none",
       deepLinking: false,
     },
     uiHooks: {

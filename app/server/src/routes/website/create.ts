@@ -4,6 +4,7 @@ import { WebSiteDBSchema } from "./schema";
 
 const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   const requestSchema: FastifySchema = {
+    security: fastify.SECURITY,
     description: "创建站点信息内容",
     tags: ["website"],
     summary: "创建站点",

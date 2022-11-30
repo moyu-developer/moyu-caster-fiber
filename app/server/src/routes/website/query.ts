@@ -5,11 +5,6 @@ import { WebSiteDBSchema } from "./schema";
 const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   const requestSchema = {
     description: "查询站点信息内容",
-    security: [
-      {
-        apiKey: [],
-      },
-    ],
     tags: ["website"],
     summary: "站点列表信息",
     querystring: Type.Intersect([
@@ -25,10 +20,11 @@ const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           current: Type.Number(),
           pageSize: Type.Number(),
           total: Type.Number(),
-          list: Type.Array(Type.Object({})),
+          list: Type.Array(WebSiteDBSchema),
         })
       ),
     },
+    security: fastify.SECURITY
   };
   fastify.get<{
     Querystring: Static<typeof requestSchema.querystring>;
