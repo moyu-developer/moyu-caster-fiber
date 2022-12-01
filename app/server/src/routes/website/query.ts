@@ -36,13 +36,16 @@ const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     },
     async function (request, reply) {
       const { current, pageSize, ...params } = request.query;
+      const count = fastify.prisma.webSite.count()
       console.log(params, "params");
       const rows = await fastify.prisma.webSite.findMany({
         skip: (current - 1) * pageSize,
         take: pageSize,
       });
       return {
-        rows,
+        total: count,
+        data: rows,
+        pageSize
       };
     }
   );
