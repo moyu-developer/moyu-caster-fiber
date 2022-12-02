@@ -1,183 +1,24 @@
-import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
-import type { ActionType, ProColumns } from "@ant-design/pro-components";
-import { ProTable, TableDropdown } from "@ant-design/pro-components";
-import { Button, Dropdown, Space, Tag } from "antd";
+import { ActionType, ProCard } from "@ant-design/pro-components";
 import { useWebSiteStore } from "./useModel";
 import { useRef } from "react";
-import { WebSiteListRequestParams, WebSiteListResponseTypes } from "@/api/website/list";
+import { WebSiteProList } from './WebSiteProList'
+import { PageTableProList } from './PageTableProList'
 
-
-
-type WebSiteListItem = WebSiteListResponseTypes["data"][0]
-
-const columns: ProColumns<WebSiteListItem>[] = [
-  {
-    dataIndex: "index",
-    valueType: "indexBorder",
-    title: "序号",
-    width: 48,
-  },
-  {
-    title: "名称",
-    dataIndex: "name",
-    copyable: true,
-    ellipsis: true,
-    tip: "标题过长会自动收缩",
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: "此项为必填项",
-        },
-      ],
-    },
-  },
-  {
-    disable: true,
-    title: "标签",
-    dataIndex: "labels",
-    search: false,
-    renderFormItem: (_, { defaultRender }) => {
-      return defaultRender(_);
-    },
-    render: (_, record) => <Tag color="red">{record.env}</Tag>,
-  },
-  {
-    title: "创建时间",
-    key: "showTime",
-    dataIndex: "createdAt",
-    valueType: "date",
-    sorter: true,
-    hideInSearch: true,
-  },
-  {
-    title: "更新时间",
-    key: "showTime",
-    dataIndex: "updatedAt",
-    valueType: "date",
-    sorter: true,
-    hideInSearch: true,
-  },
-  {
-    title: "创建时间",
-    dataIndex: "createdAt",
-    valueType: "dateRange",
-    hideInTable: true,
-    search: {
-      transform: (value) => {
-        return {
-          startTime: value[0],
-          endTime: value[1],
-        };
-      },
-    },
-  },
-  {
-    title: "操作",
-    valueType: "option",
-    key: "option",
-    render: (text, record, _, action) => [
-      <a
-        key="editable"
-        onClick={() => {
-          action?.startEditable?.(record.id);
-        }}
-      >
-        编辑
-      </a>,
-      <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
-        查看
-      </a>,
-      <TableDropdown
-        key="actionGroup"
-        onSelect={() => action?.reload()}
-        menus={[
-          { key: "copy", name: "复制" },
-          { key: "delete", name: "删除" },
-        ]}
-      />,
-    ],
-  },
-];
 
 export default () => {
   const actionRef = useRef<ActionType>();
   const store = useWebSiteStore();
   console.log(store, "store");
   return (
-    <ProTable<WebSiteListItem>
-      columns={columns}
-      actionRef={actionRef}
-      cardBordered
-      bordered
-      request={async (params, sort, filter) => {
-        return store.fetch(params as WebSiteListRequestParams);
-      }}
-      editable={{
-        type: "multiple",
-      }}
-      columnsState={{
-        persistenceKey: "pro-table-singe-demos",
-        persistenceType: "localStorage",
-        onChange(value) {
-          console.log("value: ", value);
-        },
-      }}
-      rowKey="id"
-      search={{
-        labelWidth: "auto",
-      }}
-      options={{
-        setting: {
-          listsHeight: 400,
-        },
-      }}
-      form={{
-        // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
-        syncToUrl: (values, type) => {
-          if (type === "get") {
-            return {
-              ...values,
-              created_at: [values.startTime, values.endTime],
-            };
-          }
-          return values;
-        },
-      }}
-      pagination={{
-        pageSize: 5,
-        onChange: (page) => console.log(page),
-      }}
-      dateFormatter="string"
-      headerTitle="高级表格"
-      toolBarRender={() => [
-        <Button key="button" icon={<PlusOutlined />} type="primary">
-          新建
-        </Button>,
-        <Dropdown
-          key="menu"
-          menu={{
-            items: [
-              {
-                label: "1st item",
-                key: "1",
-              },
-              {
-                label: "2nd item",
-                key: "1",
-              },
-              {
-                label: "3rd item",
-                key: "1",
-              },
-            ],
-          }}
-        >
-          <Button>
-            <EllipsisOutlined />
-          </Button>
-        </Dropdown>,
-      ]}
-    />
+    <ProCard style={{
+      height: "100%"
+    }} split="vertical" bordered >
+      <ProCard  colSpan="50%">
+        <WebSiteProList/>
+      </ProCard>
+      <ProCard title="左右分栏子卡片带标题" headerBordered>
+        <PageTableProList/>
+      </ProCard>
+    </ProCard>
   );
 };
