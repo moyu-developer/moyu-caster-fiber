@@ -6,7 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { css } from "@emotion/css";
-import { Avatar, Button, Dropdown, Menu, Space, Typography } from "antd";
+import { Avatar, Button, Dropdown, Menu, Space, Image } from "antd";
 
 const menu = (
   <Menu
@@ -62,26 +62,22 @@ const menu = (
 const classes = {
   box: css({
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: `12px 12px 0`,
+    gap: 8
   }),
   title: css({
-    fontSize: 20,
-    fontWeight: "500"
+    fontSize: 19,
+    fontWeight: 500
   }),
 };
 
 export const BrandTop = () => {
   return (
     <div className={classes.box}>
-      <div className={classes.title}>Fiber</div>
-      <Dropdown overlay={menu}>
-        <Space size={4}>
-              <Avatar shape="square" src="https://joeschmoe.io/api/v1/random" size="small" />
-              <DownOutlined style={{ fontSize: 10, fontWeight: "bold" }} />
-            </Space>
-        </Dropdown>
+      <Image height={30} width={30} src="https://s2.loli.net/2022/12/04/CS2GplwyUNmqZ7J.png" />
+      <div className={classes.title} >Lowcode Fiber</div>
     </div>
   );
 };

@@ -9,12 +9,22 @@ export default () => {
   return {
     layout: css({
       height: "100vh",
+      background: token.colorBgBase
     }),
     content: css({
-      padding: `25px 35px`,
+      padding: `24px 0 24px 0`,
       display: 'grid',
       gridTemplateRows: `35px 1fr`,
-      background: token.colorWhite
+    }),
+    title: css({
+      fontSize: token.fontSizeLG,
+      fontWeight: token.fontWeightStrong,
+      padding: `0 35px`,
+    }),
+    outlet: css({
+      height: '100%',
+      overflow: 'auto',
+      padding: `0 35px`
     })
   }
 }

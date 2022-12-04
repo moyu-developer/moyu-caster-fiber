@@ -8,7 +8,7 @@ export interface MaterialFunctionComponent<P = any>
   craft?: any;
 }
 
-export interface ContainerProps {
+export interface ContainerProps extends React.CSSProperties {
   children?: ReactNode;
   height?: React.CSSProperties["height"];
   style?: React.CSSProperties;
@@ -16,9 +16,10 @@ export interface ContainerProps {
 
 export const Container: MaterialFunctionComponent<ContainerProps> = ({
   children,
+  width,
   ...styledProps
 }) => {
-  const styles = useStyles()
+  console.log(width, 'width')
   const {
     connectors: { connect, drag },
   } = useNode((state) => {
