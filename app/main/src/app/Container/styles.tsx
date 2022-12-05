@@ -12,14 +12,24 @@ export default () => {
       background: token.colorBgBase
     }),
     content: css({
-      padding: `24px 0 24px 0`,
+      paddingBottom: 24,
       display: 'grid',
-      gridTemplateRows: `35px 1fr`,
+      gridTemplateRows: `60px 1fr`,
+    }),
+    header: css({
+      height: 60,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: `0 35px`,
+    }),
+    icon: css({
+      fontSize: 18,
+      color: token.colorTextSecondary
     }),
     title: css({
       fontSize: token.fontSizeLG,
       fontWeight: token.fontWeightStrong,
-      padding: `0 35px`,
     }),
     outlet: css({
       height: '100%',
