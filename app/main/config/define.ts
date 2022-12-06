@@ -1,3 +1,3 @@
 export default {
-  host: '//localhost:8500'
+  baseHost: '//localhost:10018'
 }
