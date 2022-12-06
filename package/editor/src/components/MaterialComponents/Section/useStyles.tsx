@@ -9,7 +9,7 @@ export const useStyles = () => {
     layout: css({
       display: "grid",
       gridTemplateColumns: `1fr 1fr 1fr`,
-      gap: token.sizeSpaceXS
+      gap: token.sizeSM
     }),
     section: css({
       width: "100%",

@@ -9,11 +9,15 @@ export default () => {
   const { token } = useToken()
 
   return ({
-    list: css({
+    panels: css({
       height: '100%',
-      // display: "grid",
-      // gridTemplateRows: "1fr",
       border: `1px solid ${token.colorBorderSecondary}`,
+      display: "grid",
+      gridTemplateRows: "1fr 50px"
+    }),
+    collapse: css({
+      height: '100%',
+      overflow: "auto",
     }),
     title: css({
       padding: token.paddingSM,
