@@ -1,22 +1,20 @@
 import { ActionType, ProCard } from "@ant-design/pro-components";
-import { useWebSiteStore } from "./useModel";
 import { useRef } from "react";
 import { WebSiteProList } from './WebSiteProList'
 import { PageTableProList } from './PageTableProList'
+import { Button } from "antd";
 
 
 export default () => {
-  const actionRef = useRef<ActionType>();
-  const store = useWebSiteStore();
-  console.log(store, "store");
+
   return (
     <ProCard style={{
       height: "100%"
     }} split="vertical" bordered >
-      <ProCard  colSpan="50%">
-        <WebSiteProList/>
+      <ProCard size="small" headerBordered  title="站点" extra={<Button type="primary" >创建站点</Button>} colSpan="25%">
+        <WebSiteProList />
       </ProCard>
-      <ProCard title="左右分栏子卡片带标题" headerBordered>
+      <ProCard size="small" title="路由器" extra={<Button type="primary" >新建路由</Button>} >
         <PageTableProList/>
       </ProCard>
     </ProCard>

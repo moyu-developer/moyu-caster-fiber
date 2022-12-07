@@ -20,7 +20,7 @@ const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           current: Type.Number(),
           pageSize: Type.Number(),
           total: Type.Number(),
-          list: Type.Array(WebSiteDBSchema),
+          data: Type.Array(WebSiteDBSchema),
         })
       ),
     },
@@ -36,15 +36,19 @@ const appInfo: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     },
     async function (request, reply) {
       const { current, pageSize, ...params } = request.query;
-      const count = fastify.prisma.webSite.count()
-      console.log(params, "params");
+      const count = await fastify.prisma.webSite.count()
       const rows = await fastify.prisma.webSite.findMany({
         skip: (current - 1) * pageSize,
         take: pageSize,
+        where: params,
+        include: {
+          pageTable: true
+        }
       });
       return {
         total: count,
         data: rows,
+        current,
         pageSize
       };
     }
