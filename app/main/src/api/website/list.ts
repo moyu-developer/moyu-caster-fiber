@@ -1,4 +1,4 @@
-import { request } from '@/utils'
+import { request } from "@/utils";
 
 export interface WebSiteListRequestParams {
   current: number;
@@ -7,12 +7,14 @@ export interface WebSiteListRequestParams {
 
 export interface WebSiteListResponseTypes {
   total: number;
-  data: any[]
+  data: any[];
 }
 
-export default async function name(params: WebSiteListRequestParams): Promise<WebSiteListResponseTypes> {
+export default async function name(
+  params: WebSiteListRequestParams
+): Promise<WebSiteListResponseTypes> {
   return request({
-    url: '/website/list',
+    url: "/website/list",
     params,
-  })
+  });
 }

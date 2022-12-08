@@ -1,9 +1,9 @@
-import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
-import { Button, Dropdown, Space, Tag, Typography } from 'antd';
+import { Button, Dropdown, Result, Space, Tag, Typography } from 'antd';
 import { useWebSiteStore } from "./useModel";
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export enum PageTableStatus {
   ONLINE = 'ONLINE',
@@ -83,12 +83,27 @@ export const PageTableProList = () => {
     },
   ];
 
+  if (!store.webSiteId) {
+    return <Result
+    icon={<SmileOutlined />}
+    title="请点击左侧🫲站点栏目选择对应站点后路由器才会显示"
+    extra={<Button type="primary">刷新</Button>}
+  />
+  }
+
   return (
     <ProTable<PageTable>
       columns={columns}
       actionRef={actionRef}
       cardBordered
-      dataSource={store.pageTableList}
+      request={(params) => {
+        return store.getSitePageTable({
+          current: 1,
+          pageSize: 10,
+          ...params,
+          webSiteId: store.webSiteId as string
+        }) as any
+      }}
       editable={{
         type: 'multiple',
       }}

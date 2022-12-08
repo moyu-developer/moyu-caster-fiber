@@ -53,10 +53,15 @@ export const WebSiteProList = (props: WebSiteProListProps) => {
         },
         extra: {
           dataIndex: "labels",
-          title: '操作',
+          title: "操作",
           search: false,
           render: (_: any, row: any) => (
-            <Button type="primary" ghost icon={<ArrowRightOutlined />} onClick={() => store.setPageTableList(row.pageTable, row.name)} />
+            <Button
+              type="primary"
+              ghost
+              icon={<ArrowRightOutlined />}
+              onClick={() => store.setWebSiteInfo(row.name, row.id)}
+            />
           ),
         },
       }}

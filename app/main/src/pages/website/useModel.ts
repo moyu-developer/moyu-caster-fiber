@@ -2,18 +2,19 @@ import { ProTableProps } from '@ant-design/pro-components'
 import create from 'zustand'
 import getWebSiteListAPI, { WebSiteListRequestParams, WebSiteListResponseTypes } from '@/api/website/list'
 import { PageTable } from './PageTableProList';
+import getPageTableListAPI, { PageTableListRequestParams, PageTableListResponseTypes } from '@/api/pageTable/list';
 
 export const useWebSiteStore = create<{
   webSiteList: WebSiteListResponseTypes['data'],
-  total: number;
   pageTableList: PageTable[],
   webSiteTitle: string;
+  webSiteId?: string;
   fetch: (params: WebSiteListRequestParams) => Promise<WebSiteListResponseTypes>;
-  setPageTableList(list: PageTable[], title: string): void
-}>((set) => ({
+  setWebSiteInfo( title: string, id: string): void
+  getSitePageTable: (params: PageTableListRequestParams) => Promise<PageTableListResponseTypes | null>;
+}>((set, get) => ({
   webSiteList: [],
   pageTableList: [],
-  total: 0,
   webSiteTitle: '',
   fetch: async (params: WebSiteListRequestParams) => {
     const response = await getWebSiteListAPI(params)
@@ -22,7 +23,18 @@ export const useWebSiteStore = create<{
       ...response
     }
   },
-  setPageTableList: (list: PageTable[], title: string) => {
-    set({ pageTableList: list, webSiteTitle: title })
+  getSitePageTable: async (params: PageTableListRequestParams) => {
+    const { webSiteId } = get()
+    if (webSiteId) {
+      const response = await getPageTableListAPI({
+        ...params,
+        webSiteId
+      })
+      return response
+    }
+    return null
+  },
+  setWebSiteInfo: (title: string, id: string) => {
+    set({ webSiteTitle: title, webSiteId:  id})
   }
 }))
