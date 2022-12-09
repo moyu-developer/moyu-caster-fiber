@@ -1,7 +1,9 @@
 import { Type } from "@sinclair/typebox"
 
 export const UserDBSchema = Type.Object({
-  id: Type.String(),
+  id: Type.String({
+    minLength: 16
+  }),
   name: Type.String(),
   password: Type.String(),
   createdAt: Type.Optional(Type.String()),
