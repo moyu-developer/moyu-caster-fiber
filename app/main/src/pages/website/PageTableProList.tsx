@@ -1,9 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { EllipsisOutlined, PlusOutlined, SmileOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
 import { Button, Dropdown, Result, Space, Tag, Typography } from 'antd';
 import { useWebSiteStore } from "./useModel";
-import { useEffect, useRef } from 'react';
 
 export enum PageTableStatus {
   ONLINE = 'ONLINE',
@@ -82,6 +82,12 @@ export const PageTableProList = () => {
       },
     },
   ];
+
+  useEffect(() => {
+    if (store.webSiteId) {
+      actionRef.current?.reload()
+    }
+  }, [store.webSiteId])
 
   if (!store.webSiteId) {
     return <Result
