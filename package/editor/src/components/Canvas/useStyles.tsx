@@ -17,7 +17,7 @@ export const useStyles = () => {
     canvas: css({
       height: "100%",
       width: '100%',
-      padding: token.paddingSM,
+      padding: `30px ${token.paddingSM}px`,
     }),
     toolbox: css({}),
 
