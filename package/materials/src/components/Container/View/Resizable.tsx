@@ -135,11 +135,11 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
     let height, width;
 
     if (resizable.current) {
-      width = percentToPx(
+      width = nodeWidth &&  percentToPx(
         nodeWidth,
         getElementDimensions(resizable.current?.resizable?.parentElement).width
       );
-      height = percentToPx(
+      height = nodeHeight && percentToPx(
         nodeHeight,
         getElementDimensions(resizable.current?.resizable?.parentElement).height
       );
@@ -205,9 +205,14 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
         };
         isResizing.current = true;
       }}
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-start'
+      }}
       onResize={(_, __, ___, d) => {
         const dom = resizable.current.resizable;
         let { width, height }: any = getUpdatedDimensions(d.width, d.height);
+        console.log(isPercentage(nodeWidth), isPercentage(nodeHeight), 'onResize')
         if (isPercentage(nodeWidth))
           width =
             pxToPercent(width, getElementDimensions(dom.parentElement).width) +
@@ -230,6 +235,7 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
           height = editingDimensions.current.height + d.height + "px";
         }
 
+        console.log(width, height, 'set')
         setProp((prop: any) => {
           prop[propKey.width] = width;
           prop[propKey.height] = height;
