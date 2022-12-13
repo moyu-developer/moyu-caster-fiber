@@ -5,7 +5,7 @@ import { Collapse } from 'antd'
 
 export const Settings = () => {
   return (
-    <Collapse>
+    <Collapse  ghost >
       <SpaceGroupSettings/>
       <TypographyGroupSettings/>
       <LayoutGroupSettings/>

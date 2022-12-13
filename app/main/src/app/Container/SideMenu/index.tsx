@@ -9,15 +9,25 @@ import { menuRoutes } from "../../../../config/routes";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-const items = [
-  { label: '菜单项一', key: 'item-1' }, // 菜单项务必填写 key
-  { label: '菜单项二', key: 'item-2' },
-  {
-    label: '子菜单',
-    key: 'submenu',
-    children: [{ label: '子菜单项', key: 'submenu-item-1' }],
-  },
-];
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: "group"
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+const items = menuRoutes.map((route) => {
+  return getItem(route.name, route.path);
+});
 
 export const SideContainer = () => {
   const classes = useStyles();
@@ -32,7 +42,7 @@ export const SideContainer = () => {
           background: "transparent",
           borderRight: "none",
         }}
-        selectedKeys={['item-1']}
+        selectedKeys={[pathname]}
         mode="vertical"
         items={items as MenuItem[]}
       />

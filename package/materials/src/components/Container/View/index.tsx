@@ -1,7 +1,7 @@
 import { useNode } from "@craftjs/core";
 import { FunctionComponent, ReactNode } from "react";
-import { Box } from '@/atom/Box'
-import { useStyles } from './useStyles'
+import { Box } from "@/atom/Box";
+import { Resizer } from "./Resizable";
 
 export interface MaterialFunctionComponent<P = any>
   extends FunctionComponent<P> {
@@ -19,22 +19,15 @@ export const Container: MaterialFunctionComponent<ContainerProps> = ({
   width,
   ...styledProps
 }) => {
-  console.log(width, 'width')
-  const {
-    connectors: { connect, drag },
-  } = useNode((state) => {
-    return {
-      selected: state.events.selected,
-      dragged: state.events.dragged,
-    };
-  });
-
   return (
-    <Box
-      ref={(ref: HTMLDivElement) => connect(drag(ref))}
-      {...styledProps}
-    >
+    <Resizer propKey={{ width: "width", height: "height" }} style={styledProps}>
       {children}
-    </Box>
+    </Resizer>
   );
+};
+
+Container.defaultProps = {
+  height: 300,
+  width: "100%",
+  background: "#FFFFFF",
 };
