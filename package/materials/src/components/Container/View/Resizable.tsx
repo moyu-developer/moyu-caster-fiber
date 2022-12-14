@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "@emotion/styled";
 import { Resizable } from "re-resizable";
 import { useEditor, useNode } from "@craftjs/core";
 import {
@@ -9,80 +8,12 @@ import {
   getElementDimensions,
 } from "@/utils/transPercentage";
 import debounce from "lodash/debounce";
+import { IndicatorRound } from "./Indicators";
 
 export interface ResizerProps {
   onChange: (w: number, h: number) => void;
   children: React.ReactNode;
 }
-
-const Indicators = styled.div<{ bound?: "row" | "column" }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  span {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 100%;
-    display: block;
-    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.25);
-    z-index: 99999;
-    pointer-events: none;
-    border: 2px solid #36a9e0;
-    &:nth-child(1) {
-      ${(props) =>
-        props.bound
-          ? props.bound === "row"
-            ? `
-                left: 50%;
-                top: -5px;
-                transform:translateX(-50%);
-              `
-            : `
-              top: 50%;
-              left: -5px;
-              transform:translateY(-50%);
-            `
-          : `
-              left: -5px;
-              top:-5px;
-            `}
-    }
-    &:nth-child(2) {
-      right: -5px;
-      top: -5px;
-      display: ${(props) => (props.bound ? "none" : "block")};
-    }
-    &:nth-child(3) {
-      ${(props) =>
-        props.bound
-          ? props.bound === "row"
-            ? `
-                left: 50%;
-                bottom: -5px;
-                transform:translateX(-50%);
-              `
-            : `
-                bottom: 50%;
-                left: -5px;
-                transform:translateY(-50%);
-              `
-          : `
-              left: -5px;
-              bottom:-5px;
-            `}
-    }
-    &:nth-child(4) {
-      bottom: -5px;
-      right: -5px;
-      display: ${(props) => (props.bound ? "none" : "block")};
-    }
-  }
-`;
 
 export const Resizer = ({ propKey, children, ...props }: any) => {
   const {
@@ -135,14 +66,20 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
     let height, width;
 
     if (resizable.current) {
-      width = nodeWidth &&  percentToPx(
-        nodeWidth,
-        getElementDimensions(resizable.current?.resizable?.parentElement).width
-      );
-      height = nodeHeight && percentToPx(
-        nodeHeight,
-        getElementDimensions(resizable.current?.resizable?.parentElement).height
-      );
+      width =
+        nodeWidth &&
+        percentToPx(
+          nodeWidth,
+          getElementDimensions(resizable.current?.resizable?.parentElement)
+            .width
+        );
+      height =
+        nodeHeight &&
+        percentToPx(
+          nodeHeight,
+          getElementDimensions(resizable.current?.resizable?.parentElement)
+            .height
+        );
     }
     setInternalDimensions({
       width,
@@ -206,13 +143,17 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
         isResizing.current = true;
       }}
       style={{
-        display: 'flex',
-        justifyContent: 'flex-start'
+        display: "flex",
+        justifyContent: "flex-start",
       }}
       onResize={(_, __, ___, d) => {
         const dom = resizable.current.resizable;
         let { width, height }: any = getUpdatedDimensions(d.width, d.height);
-        console.log(isPercentage(nodeWidth), isPercentage(nodeHeight), 'onResize')
+        console.log(
+          isPercentage(nodeWidth),
+          isPercentage(nodeHeight),
+          "onResize"
+        );
         if (isPercentage(nodeWidth))
           width =
             pxToPercent(width, getElementDimensions(dom.parentElement).width) +
@@ -235,7 +176,7 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
           height = editingDimensions.current.height + d.height + "px";
         }
 
-        console.log(width, height, 'set')
+        console.log(width, height, "set");
         setProp((prop: any) => {
           prop[propKey.width] = width;
           prop[propKey.height] = height;
@@ -249,12 +190,7 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
     >
       {children}
       {active && (
-        <Indicators bound={fillSpace === "yes" ? parentDirection : false}>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </Indicators>
+        <IndicatorRound bound={fillSpace === "yes" ? parentDirection : false} />
       )}
     </Resizable>
   );

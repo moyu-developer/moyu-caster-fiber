@@ -1,6 +1,5 @@
-import { useNode } from "@craftjs/core";
+import { useNode, UserComponent } from "@craftjs/core";
 import { FunctionComponent, ReactNode } from "react";
-import { Box } from "@/atom/Box";
 import { Resizer } from "./Resizable";
 
 export interface MaterialFunctionComponent<P = any>
@@ -14,7 +13,7 @@ export interface ContainerProps extends React.CSSProperties {
   style?: React.CSSProperties;
 }
 
-export const Container: MaterialFunctionComponent<ContainerProps> = ({
+export const Container: UserComponent<ContainerProps> = ({
   children,
   width,
   ...styledProps
