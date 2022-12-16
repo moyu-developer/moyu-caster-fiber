@@ -28,6 +28,7 @@ export const MaterialItem = React.forwardRef<HTMLDivElement, MaterialItemProps>(
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        padding: `12px 4px`
       }}
     >
       <Avatar shape="square" >Text</Avatar>

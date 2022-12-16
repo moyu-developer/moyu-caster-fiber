@@ -1,16 +1,28 @@
 import { List, Collapse, Typography, theme, Button, Space } from "antd";
-import { AppstoreAddOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { AppstoreAddOutlined } from "@ant-design/icons";
 import { css } from "@emotion/css";
+import { EditorContext } from '../Provider'
+import { useContext } from "react";
+import React from "react";
+import { useEditorData } from "@/state/useEditorData";
 
 const data = [
-  "/home.html",
-  "/activity.html",
-  "/category.html",
-  "/cart.html",
-  "/my.html",
+  "/home",
+  "/activity",
+  "/category",
+  "/cart",
+  "/my",
 ];
 export const PageTable = () => {
   const { token } = theme.useToken();
+  const { getRoutes, routes } = useEditorData()
+  const context = useContext(EditorContext)
+
+  React.useEffect(() => {
+    if (context?.wID) {
+      getRoutes(context?.wID)
+    }
+  }, [context?.wID])
 
   return (
     <Collapse bordered={false}>
@@ -24,7 +36,7 @@ export const PageTable = () => {
         <List
           size="small"
           bordered={false}
-          dataSource={data}
+          dataSource={routes}
           itemLayout="vertical"
           renderItem={(item) => (
             <Typography.Paragraph
@@ -34,8 +46,9 @@ export const PageTable = () => {
                   cursor: "pointer",
                 }}
                 ellipsis
+                onClick={() => window.open(`/editor/${context?.wID}/${item.id}`)}
               >
-                {item}
+                {item.route}
               </Typography.Paragraph>
           )}
         />

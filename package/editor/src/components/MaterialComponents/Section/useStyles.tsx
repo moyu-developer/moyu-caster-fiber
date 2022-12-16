@@ -15,5 +15,8 @@ export const useStyles = () => {
       width: "100%",
       padding: token.paddingSM
     }),
+    components: css({
+      margin: `0 -12px`
+    })
   })
 }

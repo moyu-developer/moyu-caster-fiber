@@ -10,7 +10,7 @@ export default () => {
 
   return ({
     panels: css({
-      height: '100%',
+      height: '100vh',
       border: `1px solid ${token.colorBorderSecondary}`,
       display: "grid",
       gridTemplateRows: "1fr 50px"
@@ -22,7 +22,6 @@ export default () => {
     title: css({
       padding: token.paddingSM,
       fontWeight: 500,
-      // borderBottom: `1px solid ${token.colorBorderSecondary}`
     }),
     segmented: css({
       padding: `6px 12px`

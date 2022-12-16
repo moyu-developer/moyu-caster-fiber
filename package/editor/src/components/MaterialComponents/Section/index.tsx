@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as MaterialsData from "@caster-fiber/materials";
-import { Alert, Input, Space, Typography } from "antd";
+import { Alert, Button, Collapse, Input, Space, Typography } from "antd";
 import { MaterialItem } from "../Item";
-import { useEditor } from "@craftjs/core";
+import { useEditor, Element } from "@craftjs/core";
 import { useStyles } from "./useStyles";
 
 /**
@@ -20,7 +20,7 @@ function fuzzyQuery(str: string, keyWord: string) {
 export const MaterialSection = () => {
   const [searchVal, setSearchVal] = React.useState("");
   const { connectors } = useEditor();
-  const { layout, section } = useStyles();
+  const { layout, section, components } = useStyles();
 
   const materialsList = React.useMemo(() => {
     const materialOptions: Array<{
@@ -30,6 +30,7 @@ export const MaterialSection = () => {
     Object.keys(MaterialsData).forEach((key) => {
       const indexes = key as keyof typeof MaterialsData;
       const md = MaterialsData?.[indexes];
+
       if (searchVal) {
         if (fuzzyQuery(key, searchVal)) {
           materialOptions.push({
@@ -54,22 +55,45 @@ export const MaterialSection = () => {
         enterButton
         onSearch={(v) => setSearchVal(v)}
       />
-      <Alert showIcon message="拖动一个小部件可以将其放入到画布当中." />
-      <div className={layout}>
-        {materialsList.map((option) => {
-          return (
-            <MaterialItem
-              key={option.key}
-              ref={(ref) =>
-                connectors.create(
-                  ref as HTMLElement,
-                  React.createElement(option.value)
-                )
-              }
-              text={option.key}
-            />
-          );
-        })}
+      <Alert message="拖动小部件可以将其放入到画布当中进行配置" />
+      <div className={components}>
+        <Collapse ghost>
+          <Collapse.Panel key="baseComponents" header="基础部件">
+            <div className={layout}>
+              {materialsList.map((option) => {
+                let value = React.createElement(option.value);
+                if (option.key === "Container") {
+                  value = (
+                    <Element
+                      is={option.value}
+                      canvas
+                      height={300}
+                      width="100%"
+                      paddingTop={20}
+                      paddingBottom={20}
+                      paddingLeft={20}
+                      paddingRight={20}
+                    />
+                  );
+                }
+                return (
+                  <MaterialItem
+                    key={option.key}
+                    text={option.value?.craft?.displayName}
+                    ref={(ref) => connectors.create(ref as HTMLElement, value)}
+                  ></MaterialItem>
+                );
+              })}
+            </div>
+          </Collapse.Panel>
+          <Collapse.Panel key="messageComponents" header="信息反馈">
+            <div className={layout}>
+              {["通知栏", "提示器"].map((v) => (
+                <MaterialItem key={v} text={v}></MaterialItem>
+              ))}
+            </div>
+          </Collapse.Panel>
+        </Collapse>
       </div>
     </Space>
   );

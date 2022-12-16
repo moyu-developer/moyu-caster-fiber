@@ -1,12 +1,9 @@
 import * as React from "react";
-import {
-  Segmented,
-  SegmentedProps,
-} from "antd";
+import { Segmented, SegmentedProps } from "antd";
 import { MaterialSection } from "./Section";
 import { NodeSchemaData } from "../NodeSchemaData";
-import { PageTable } from './PageTable'
-import { Footer } from './Footer'
+import { PageTable } from "./PageTable";
+import { Footer } from "./Footer";
 import useStyles from "./useStyles";
 
 export const MaterialComponents = () => {
@@ -17,17 +14,20 @@ export const MaterialComponents = () => {
   return (
     <div className={styles.panels}>
       <div className={styles.collapse}>
-        <PageTable/>
+        <PageTable />
         <div className={styles.segmented}>
           <Segmented
             value={segmented}
             onChange={(v) => setSegmented(v)}
             block
-            options={["探索", "控件"]} onResize={undefined} onResizeCapture={undefined}          />
+            options={["探索", "控件"]}
+            onResize={undefined}
+            onResizeCapture={undefined}
+          />
         </div>
         {segmented === "控件" ? <MaterialSection /> : <NodeSchemaData />}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
