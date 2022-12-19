@@ -12,7 +12,6 @@ import { useStyles } from "./useStyles";
  * @returns { boolean } 是否存在
  */
 function fuzzyQuery(str: string, keyWord: string) {
-  console.log(str, keyWord, "fuzzyQuery");
   const reg = new RegExp(keyWord, "i");
   return reg.test(str);
 }
@@ -30,6 +29,8 @@ export const MaterialSection = () => {
     Object.keys(MaterialsData).forEach((key) => {
       const indexes = key as keyof typeof MaterialsData;
       const md = MaterialsData?.[indexes];
+      
+      console.log(md.craft?.custom, 'option.value?.craft?.displayName')
 
       if (searchVal) {
         if (fuzzyQuery(key, searchVal)) {
