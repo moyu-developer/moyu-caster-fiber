@@ -1,20 +1,26 @@
-import { ProLayoutProps } from '@ant-design/pro-components'
+import { ProLayoutProps } from "@ant-design/pro-components";
 
-export type Route = ProLayoutProps['route'];
+export type Route = ProLayoutProps["route"];
 
 export const menuRoutes = [
-  { path: "/website", component: "@/pages/website", name: 'WebSite', 
-  wrappers: [
-    '@/wrappers/withAuth',
-  ], },
-]
+  {
+    path: "/website",
+    component: "@/pages/website",
+    name: "WebSite",
+    wrappers: ["@/wrappers/withAuth"],
+  },
+];
 
 const routes: any[] = [
-  { path: '/', redirect: '/website' },
+  { path: "/", redirect: "/website" },
   { path: "/login", component: "login" },
   {
     component: "@/app/index",
     routes: menuRoutes,
+  },
+  {
+    path: "/preview",
+    component: "@/pages/preview",
   },
   { path: "/editor/:webSiteId/:pageId", component: "@/pages/editor" },
   { path: "/notfound", component: "@/pages/404" },
@@ -22,6 +28,6 @@ const routes: any[] = [
     path: "*",
     redirect: "/notfound?type=NOTFOUND",
   },
-]
+];
 
-export default routes
+export default routes;
