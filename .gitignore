@@ -12,6 +12,7 @@
 **/.next
 **/.umi
 **/.umi-production
+**/.dumi
 
 # local env
 *.local
