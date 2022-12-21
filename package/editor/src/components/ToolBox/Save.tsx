@@ -1,4 +1,4 @@
-import { Button, Menu, Space } from "antd";
+import { Button, Menu, message, notification, Space } from "antd";
 import {
   VerticalAlignTopOutlined,
   SendOutlined,
@@ -7,6 +7,7 @@ import {
 import { useEditor } from "@craftjs/core";
 import { PublishModal } from "./PublishModal";
 import lz from "lzutf8";
+import { useEditorData } from "@/state/useEditorData";
 
 const menu = (
   <Menu
@@ -27,17 +28,28 @@ const menu = (
 );
 
 export const Save = () => {
+  const { onSave } = useEditorData()
   const { query } = useEditor();
 
-  const handleEditorSaveEvent = () => {
+  const handleEditorSaveEvent = async () => {
     const json = query.serialize();
     const lzPageState = lz.encodeBase64(lz.compress(json));
-    console.log(lzPageState, "json");
+    const bool = await onSave({
+      state: lzPageState
+    })
+    if (bool) {
+      notification.success({
+        message: '保存成功',
+        description: '当前编辑器状态已保存成功'
+      })
+    } else {
+      message.error(`保存失败，请重试`)
+    }
   };
 
   return (
     <Space>
-      <Button size="small" onClick={handleEditorSaveEvent} type="primary" ghost>
+      <Button size="small" onClick={handleEditorSaveEvent} type="primary" ghost >
         保存
       </Button>
       <PublishModal
