@@ -12,7 +12,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         current: Type.Number(),
         pageSize: Type.Number(),
       }),
-      Type.Partial(Type.Pick(PageTableDBSchema, ["id", "name", "route", "status"])),
+      Type.Partial(Type.Pick(PageTableDBSchema, ["id", "name", "route", "status", "webSiteId"])),
     ]),
     response: {
       200: fastify.handleResponseSchema(
@@ -43,7 +43,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         take: pageSize,
         where: {
           ...params,
-          userId 
+          userId,
         },
         include: {
           webSite: true,

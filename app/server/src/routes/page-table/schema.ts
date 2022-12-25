@@ -3,11 +3,12 @@ import { PageTableStatus } from '@prisma/client'
 
 export const PageTableDBSchema = Type.Object({
   id: Type.String({
-    minLength: 12,
-    maxLength: 12,
-    description: 'params/:id长度最少是12位',
+    description: '页面ID',
   }),
-  name: Type.String(),
+  name: Type.String({
+    minLength: 2,
+    maxLength: 50
+  }),
   createdAt: Type.Date(),
   updatedAt: Type.Date(),
   route: Type.String(),

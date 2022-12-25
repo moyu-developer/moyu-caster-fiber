@@ -25,7 +25,6 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       try {
         const { id: userId }: any = request.user;
         const pageId = request.params?.id;
-				console.log(pageId, 'pageId')
         const row = await fastify.prisma.pageTable.findUnique({
           where: {
             id: pageId,
