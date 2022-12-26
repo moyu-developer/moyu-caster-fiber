@@ -2,7 +2,6 @@ export const isPercentage = (val: string) =>
   typeof val === 'string' && val.indexOf && val.indexOf('%') > -1;
 
 export const percentToPx = (value: any, comparativeValue: number) => {
-  console.log(value, 'value')
   if (value.indexOf && value.indexOf('px') > -1 || value === 'auto' || !comparativeValue)
     return value;
   const percent = parseInt(value);
