@@ -67,7 +67,7 @@ export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
         display="grid"
       >
         <Form.Item label="宽度" name="width">
-          <InputNumberSetter addonAfter="%" min={0} max={100} width="100%" />
+          <InputNumberSetter width="100%" />
         </Form.Item>
 
         <Form.Item label="高度" name="height">
