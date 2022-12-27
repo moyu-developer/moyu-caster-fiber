@@ -10,12 +10,8 @@ import {
 import debounce from "lodash/debounce";
 import { IndicatorRound } from "./Indicators";
 
-export interface ResizerProps {
-  onChange: (w: number, h: number) => void;
-  children: React.ReactNode;
-}
-
-export const Resizer = ({ propKey, children, ...props }: any) => {
+export const Resizer = ({ propKey, flexDirection = 'column', children, ...props }: any) => {
+  console.log(props, 'props')
   const {
     id,
     actions: { setProp },
@@ -123,6 +119,7 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
 
   return (
     <Resizable
+      {...props}
       size={internalDimensions}
       ref={(ref) => {
         if (ref) {
@@ -143,17 +140,13 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
         isResizing.current = true;
       }}
       style={{
-        display: "flex",
-        justifyContent: "flex-start",
+        display: 'flex',
+        flexDirection,
+        ...props.style,
       }}
       onResize={(_, __, ___, d) => {
         const dom = resizable.current.resizable;
         let { width, height }: any = getUpdatedDimensions(d.width, d.height);
-        console.log(
-          isPercentage(nodeWidth),
-          isPercentage(nodeHeight),
-          "onResize"
-        );
         if (isPercentage(nodeWidth))
           width =
             pxToPercent(width, getElementDimensions(dom.parentElement).width) +
@@ -176,7 +169,6 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
           height = editingDimensions.current.height + d.height + "px";
         }
 
-        console.log(width, height, "set");
         setProp((prop: any) => {
           prop[propKey.width] = width;
           prop[propKey.height] = height;
@@ -186,7 +178,6 @@ export const Resizer = ({ propKey, children, ...props }: any) => {
         isResizing.current = false;
         updateInternalDimensionsWithOriginal();
       }}
-      {...props}
     >
       {children}
       {active && (

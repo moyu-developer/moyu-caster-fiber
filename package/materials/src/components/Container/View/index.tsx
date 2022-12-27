@@ -15,7 +15,6 @@ export interface ContainerProps extends React.CSSProperties {
 
 export const Container: UserComponent<ContainerProps> = ({
   children,
-  width,
   ...styledProps
 }) => {
   return (
@@ -26,7 +25,5 @@ export const Container: UserComponent<ContainerProps> = ({
 };
 
 Container.defaultProps = {
-  height: 300,
   width: "100%",
-  background: "#FFFFFF",
 };
