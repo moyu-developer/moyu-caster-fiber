@@ -16,6 +16,10 @@ export default () => {
       padding: token.paddingSM,
       fontWeight: 500,
       borderBottom: `1px solid ${token.colorBorderSecondary}`
+    }),
+    form: css({
+      height: '100%',
+      overflow: 'auto'
     })
   }
 }
