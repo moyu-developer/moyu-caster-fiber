@@ -2,7 +2,8 @@ import * as React from "react";
 import { useNode, useEditor } from "@craftjs/core";
 import ReactDOM from "react-dom";
 import { useStyles } from "./useStyles";
-import { Space, Typography } from "antd";
+import { Space } from "antd";
+import {  } from 'antd'
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export const RenderNode = ({ render }: any) => {
@@ -19,8 +20,6 @@ export const RenderNode = ({ render }: any) => {
     dom,
     name,
     isRootNode,
-    moveable,
-    deletable,
     connectors: { drag },
     parent,
     node,
@@ -38,9 +37,12 @@ export const RenderNode = ({ render }: any) => {
 
   React.useEffect(() => {
     if (dom) {
-      if (isActive) dom.classList.add(classes.hovered, classes.selected);
-      if (isHover) dom.classList.add(classes.hovered)
-      else dom.classList.remove(classes.hovered, classes.selected);
+      if (isHover || isActive) {
+        dom.classList.add(classes.hovered)
+      } else {
+        dom.classList.remove(classes.hovered)
+      };
+      
     }
   }, [dom, isActive, isHover]);
 
@@ -65,12 +67,12 @@ export const RenderNode = ({ render }: any) => {
 
   React.useEffect(() => {
     document
-      ?.querySelector(".craftjs-renderer")
+      ?.querySelector("#ViewPort")
       ?.addEventListener("scroll", scroll);
 
     return () => {
       document
-        ?.querySelector(".craftjs-renderer")
+        ?.querySelector("#ViewPort")
         ?.removeEventListener("scroll", scroll);
     };
   }, [scroll]);
@@ -83,7 +85,7 @@ export const RenderNode = ({ render }: any) => {
               style={{
                 left: getPos(dom).left,
                 top: getPos(dom).top,
-                zIndex: 9999,
+                zIndex: 1,
               }}
               className={classes.portal}
               ref={currentRef}

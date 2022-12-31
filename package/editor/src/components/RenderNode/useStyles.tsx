@@ -17,7 +17,7 @@ export const useStyles = () => {
       justifyContent: "flex-start",
       alignItems: "center",
       background: token.colorPrimary,
-      color: token.colorBgBase
+      color: token.colorBgBase,
     }),
     selected: css({
       '&::after': {
