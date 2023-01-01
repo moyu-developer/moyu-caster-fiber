@@ -10,14 +10,12 @@ export const useStyles = () => {
       flexDirection: "column",
     }),
     card: css({
-      width: 400,
       marginBottom: 24,
       padding: `46px 48px`,
       borderRadius: 10,
       boxShadow: `0 4px 8px -4px rgb(0 0 0 / 13%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 12px 24px 16px rgb(0 0 0 / 4%)`,
     }),
     account: css({
-      width: 400,
       borderRadius: 10,
     })
   })
