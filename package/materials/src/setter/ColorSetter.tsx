@@ -37,8 +37,6 @@ export const ColorSetter = (props: ColorSetterProps<string>) => {
 
   const handleColorPickerValueChange = (v: string) => {
 
-    console.log(v, '/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/')
-
     if ( props.onChange) {
       props.onChange(v)
     }
@@ -89,7 +87,7 @@ export const ColorSetter = (props: ColorSetterProps<string>) => {
           min={6}
           prefix={<Tag color={props.value}>HEX(#)</Tag>}
           value={props.value.replace("#", "")}
-          onChange={(e) => handleColorPickerValueChange("#" + e.target.value)}
+          onChange={(e: any) => handleColorPickerValueChange("#" + e.target.value)}
         />
       ) : null}
     </Space>
