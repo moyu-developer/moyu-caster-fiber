@@ -10,7 +10,6 @@ export const SpotlightModal = (props: ModalFormProps) => {
       width={650}
       modalProps={{
         closeIcon: <div/>,
-        onCancel: () => console.log('run'),
       }}
     >
       <Input suffix={<SearchOutlined/>} bordered={false} size="large" placeholder="请输入搜索内容" />
