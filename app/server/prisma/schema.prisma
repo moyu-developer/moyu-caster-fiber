@@ -17,7 +17,7 @@ model User {
   avatar    String?
   openId    String?  @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime        @updatedAt()
 
   origin     Origin @relation(fields: [originType], references: [type])
   originType Int    @default(1)
@@ -31,7 +31,7 @@ model Origin {
   name      String
   type      Int      @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime        @updatedAt()
   user      User[]
 }
 
@@ -67,7 +67,7 @@ model PageTable {
   route     String
   status    PageTableStatus
   createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
+  updatedAt DateTime        @updatedAt()
 
   webSiteId String  @db.ObjectId
   webSite   WebSite @relation(fields: [webSiteId], references: [id])
