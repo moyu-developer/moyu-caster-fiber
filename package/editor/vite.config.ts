@@ -35,13 +35,7 @@ export default defineConfig({
         "@emotion/css",
         "lodash",
         "copy-to-clipboard"
-      ],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
+      ]
     },
   },
 });

@@ -10,5 +10,5 @@ export default defineConfig({
   define,
   alias: {
     config: path.resolve(__dirname, './config/')
-  }
+  },
 })

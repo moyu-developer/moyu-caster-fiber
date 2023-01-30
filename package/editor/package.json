@@ -22,6 +22,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@caster-fiber/materials": "workspace:^0.0.1"
+    "@caster-fiber/materials": "workspace:^0.0.1",
+    "@caster-fiber/request": "workspace:^0.0.1",
+    "@craftjs/layers": "0.2.0-beta.8",
+    "lzutf8": "^0.6.3",
+    "react-json-view": "^1.21.3"
   }
 }

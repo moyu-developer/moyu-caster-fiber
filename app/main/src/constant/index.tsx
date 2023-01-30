@@ -1,1 +1,1 @@
-export const WhiteRoutes: string[] = ["/login", "/editor"]
+export const WhiteRoutes: string[] = ["/login", "/editor", "/404"]
