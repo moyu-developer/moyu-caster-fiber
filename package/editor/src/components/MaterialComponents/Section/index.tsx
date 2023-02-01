@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as MaterialsData from "@caster-fiber/materials";
-import { Alert, Button, Collapse, Input, Space, Typography } from "antd";
+import * as MaterialResolve from "@caster-fiber/materials";
+import { Alert, Collapse, Input, Space } from "antd";
 import { MaterialItem } from "../Item";
 import { useEditor, Element } from "@craftjs/core";
 import { useStyles } from "./useStyles";
@@ -26,11 +26,11 @@ export const MaterialSection = () => {
       key: string;
       value: any;
     }> = [];
-    Object.keys(MaterialsData).forEach((key) => {
-      const indexes = key as keyof typeof MaterialsData;
-      const md = MaterialsData?.[indexes];
-      
-      console.log(md.craft?.custom, 'option.value?.craft?.displayName')
+    Object.keys(MaterialResolve).forEach((key) => {
+      const indexes = key as keyof typeof MaterialResolve;
+      const md = MaterialResolve?.[indexes];
+
+      let option
 
       if (searchVal) {
         if (fuzzyQuery(key, searchVal)) {
@@ -47,7 +47,7 @@ export const MaterialSection = () => {
       }
     });
     return materialOptions;
-  }, [MaterialsData, searchVal]);
+  }, [MaterialResolve, searchVal]);
 
   return (
     <Space direction="vertical" className={section}>
@@ -74,6 +74,7 @@ export const MaterialSection = () => {
                       paddingBottom={20}
                       paddingLeft={20}
                       paddingRight={20}
+                      flexDirection="row"
                     />
                   );
                 }
