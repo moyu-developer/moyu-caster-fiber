@@ -35,10 +35,7 @@ export function Left(): JSX.Element {
         title="http://localhost:10007"
         extra={<ProjectMoreAction />}
       >
-        <Collapse bordered={false} ghost defaultActiveKey={["1"]}>
-          <Collapse.Panel header="路由" key="1">
-            1111
-          </Collapse.Panel>
+        <Collapse destroyInactivePanel bordered={false} ghost defaultActiveKey={["1"]}>
           <Collapse.Panel
             collapsible="header"
             extra={[

@@ -1,49 +1,53 @@
 import * as React from "react";
-import { Tree } from "antd";
+import { Alert, Card, Tree, Typography } from "antd";
 import type { DataNode, TreeProps } from "antd/es/tree";
+import { useEditor, SerializedNodes } from "@craftjs/core";
+import { DownOutlined } from "@ant-design/icons";
 
-const treeData: DataNode[] = [
-  {
-    title: "parent 1",
-    key: "0-0",
-    children: [
-      {
-        title: "parent 1-0",
-        key: "0-0-0",
-        disabled: true,
-        children: [
-          {
-            title: "leaf",
-            key: "0-0-0-0",
-            disableCheckbox: true,
-          },
-          {
-            title: "leaf",
-            key: "0-0-0-1",
-          },
-        ],
-      },
-      {
-        title: "parent 1-1",
-        key: "0-0-1",
-        children: [
-          {
-            title: <span style={{ color: "#1890ff" }}>sss</span>,
-            key: "0-0-1-0",
-          },
-        ],
-      },
-    ],
-  },
-];
+const depNodes = (node: SerializedNodes[0], data: SerializedNodes): any => {
+  if (node) {
+    const depList = node.nodes.map((id) => {
+      const curNode = data?.[id];
+      return {
+        title: curNode.displayName,
+        key: id,
+        children: curNode.nodes?.length > 0 ? depNodes(curNode, data) : [],
+      };
+    });
+    return depList;
+  }
+  return [];
+};
 
 export function NodeTree(): JSX.Element {
-  return (
+  const [treeData, setTreeData] = React.useState<DataNode[]>([]);
+
+  const { actions, query, id } = useEditor((state) => {
+    const [curNodeId] = state.events.selected;
+    return {
+      id: curNodeId,
+    };
+  });
+
+  React.useEffect(() => {
+    const serializedNodes = query.getSerializedNodes();
+    const data = depNodes(serializedNodes["ROOT"], serializedNodes);
+    setTreeData(data);
+  }, []);
+
+  return treeData?.length > 0 ? (
     <Tree
-      defaultExpandedKeys={["0-0-0", "0-0-1"]}
-      defaultSelectedKeys={["0-0-0", "0-0-1"]}
-      defaultCheckedKeys={["0-0-0", "0-0-1"]}
+      blockNode
+      showLine
+      selectedKeys={[id]}
+      switcherIcon={<DownOutlined />}
       treeData={treeData}
     />
+  ) : (
+    <Card size="small" >
+      <Typography.Text type="secondary">
+          您的页面空空如也？前往右侧组件面板添加点什么东西吧
+        </Typography.Text>
+    </Card>
   );
 }

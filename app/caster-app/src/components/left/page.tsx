@@ -1,23 +1,29 @@
-import { List, Space, Tag, Typography } from "antd";
+import { Card, List, Space, Tag, Typography } from "antd";
 
 const data = [
   {
-    title: "Ant Design Title 1",
+    title: "首页",
+    isHome: true,
+    description: '店铺首页'
   },
   {
-    title: "Ant Design Title 2",
+    title: "专题页1",
+    description: '店铺专题页1'
   },
   {
-    title: "Ant Design Title 3",
+    title: "专题页1",
+    description: '店铺专题页2'
   },
   {
-    title: "Ant Design Title 4",
+    title: "专题页3",
+    description: '店铺专题页3'
   },
 ];
 
 export function ProjectPageList() {
   return (
-    <List
+    <Card size="small" >
+      <List
       itemLayout="vertical"
       dataSource={data}
       size="small"
@@ -35,15 +41,16 @@ export function ProjectPageList() {
         >
           <List.Item.Meta
             title={
-              <Space>
-                /Page
+              <Space >
+                <Typography.Text  >{item.title}</Typography.Text>
                 <Tag color="blue">当前</Tag>
               </Space>
             }
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            description={item.description}
           />
         </List.Item>
       )}
     />
+    </Card>
   );
 }
