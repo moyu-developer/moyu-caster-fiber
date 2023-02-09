@@ -9,6 +9,7 @@ import {
   Typography,
   Input,
   Collapse,
+  Result,
 } from "antd";
 import { css } from "@emotion/css";
 import {
@@ -16,29 +17,52 @@ import {
   SearchOutlined,
   CaretRightOutlined,
 } from "@ant-design/icons";
-import { useEditor } from '@craftjs/core'
+import { useEditor } from "@craftjs/core";
 import { ProForm, ProFormRadio } from "@ant-design/pro-components";
 
 export function Prototype() {
   const { token } = theme.useToken();
-  const {  } = useEditor((state, query) => {
-    console.log(state, query, 'Prototype')
-    const selected = state.events.selected
+  const { setterMap, actions, props, Settings } = useEditor((state, query) => {
+    const [curNodeId] = state.events.selected;
 
-  })
+    let result;
+
+    // 当前存在被选中的组件
+    if (curNodeId) {
+      const { data, related } = state.nodes?.[curNodeId];
+      result = {
+        props: data.props,
+        Settings: related.settings || null,
+        setterMap: {},
+      };
+
+      return result;
+    }
+  });
+
+  React.useEffect(() => {
+    console.log(props, "props");
+  }, [props]);
+
+  console.log(Settings, "Settings");
 
   return (
     <ProForm size="small" layout="vertical" submitter={false}>
-      <Collapse
-        ghost
-        expandIcon={({ isActive }) => (
-          <CaretRightOutlined rotate={isActive ? 90 : 0} />
-        )}
-      >
-        <Collapse.Panel key="BASE" header="基础组件" extra="11">
-          <ProFormRadio.Group options={["horizontal", "vertical", "inline"]} />
-        </Collapse.Panel>
-      </Collapse>
+      {Settings ? (
+        <Settings />
+      ) : (
+        <div
+          className={css({
+            padding: token.paddingSM,
+          })}
+        >
+          <Card>
+            <Typography.Text type="secondary">
+              没有选择组件。 单击一个组件以将其选中。
+            </Typography.Text>
+          </Card>
+        </div>
+      )}
     </ProForm>
   );
 }
