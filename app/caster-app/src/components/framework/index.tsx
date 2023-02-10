@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Editor } from "@craftjs/core";
+import { Layout } from "antd";
 import { ToolBox, Left, Right, Canvas, CreateViewModal } from "../.";
-import { Layout, ConfigProvider } from "antd";
+import { RenderNode } from './render-node'
 import { css } from "@emotion/css";
-
-const { Header, Footer, Sider, Content } = Layout;
+import * as MaterialsData from "@caster-fiber/materials";
 
 const headerStyle: React.CSSProperties = {
   textAlign: "center",
@@ -41,10 +41,12 @@ export interface FrameworkProviderProps {}
 export const FrameworkContext =
   React.createContext<FrameworkProviderProps | null>(null);
 
+  console.log(MaterialsData, 'MaterialsData')
+
 export function Framework(props: { children?: React.ReactNode }): JSX.Element {
   return (
     <FrameworkContext.Provider value={null}>
-        <Editor>
+        <Editor resolver={MaterialsData} onRender={RenderNode} enabled >
           <CreateViewModal/>
           <Layout
             className={css({
