@@ -8,20 +8,20 @@ import { default as Settings } from './settings'
 export interface ContainerV2Props {
   style?: React.CSSProperties;
   className?: string;
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  initialWidth?: string | number;
+  initialHeight?: string | number;
 }
 
 export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
+  console.log(props, 'props')
 
   const resizable = React.useRef<any>(null);
 
   const {
-    id,
     actions: { setProp },
     connectors: { connect },
-    parent,
     active,
-    inNodeContext,
   } = useNode((node) => ({
     parent: node.data.parent,
     active: node.events.selected,
@@ -29,10 +29,9 @@ export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
 
   const handleResizableChange: ResizeCallback = (event, direction, elRef, delta) => {
     const { width, height } = elRef.style
-    console.log(width, height, 'handleResizableChange')
     setProp((prop: Record<string, any>) => {
-      prop.width = width
-      prop.height = height
+      prop.style.width = width
+      prop.style.height = height
     }, 400)
   }
 
@@ -40,8 +39,8 @@ export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
     <Resizable
       style={{...props?.style}}
       defaultSize={{
-        width: "100%",
-        height: "100%",
+        width:  props.initialWidth || '100%',
+        height: props.initialHeight || '100%',
       }}
       bounds="parent"
       enable={{
