@@ -63,7 +63,9 @@ export function Materials() {
             {baseComponents.map((option) => {
               let value = React.createElement(option.value);
               if (option.key === "Container") {
-                value = <Element is={option.value} canvas />;
+                value = <Element canvas is={option.value} initialHeight={100} initialWidth={100} style={{
+                  background: token.colorPrimary
+                }} />;
               }
               return (
                 <Col

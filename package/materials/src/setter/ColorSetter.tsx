@@ -67,7 +67,7 @@ export const ColorSetter = (props: ColorSetterProps<string>) => {
                   style={{
                     background: color,
                     boxShadow:
-                      props.value === color ? token.boxShadowCard : undefined,
+                      props.value === color ? token.boxShadowSecondary : undefined,
                   }}
                   className={styles.tag}
                   onClick={() => handleColorPickerValueChange(color)}

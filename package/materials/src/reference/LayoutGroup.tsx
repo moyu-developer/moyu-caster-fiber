@@ -1,9 +1,10 @@
 import { Collapse, CollapsePanelProps, Form, Segmented, Select } from "antd";
 import { ColorSetter } from "@/setter/ColorSetter";
-import { InputNumberSetter } from "@/setter/InputNumberSetter";
 import { Box } from "@/atom/Box";
 import { toFirstUpperCase } from "@/utils";
 import { RemixIcon } from "@/atom/MoyuIcon";
+import { SetterContainer } from "@/atom/collapse";
+import { ProFormText, ProFormSegmented } from '@ant-design/pro-components'
 
 const OverflowOptions = ["auto", "scroll", "hidden", "visible"].map((v) => ({
   label: toFirstUpperCase(v),
@@ -47,10 +48,10 @@ export const fontWeightOptions = [
 
 export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
   return (
-    <Collapse.Panel {...props} key="TypographyGroupSetter" header="布局">
+    <SetterContainer header="容器" >
       <Form.Item
         label="背景颜色"
-        name="backgroundColor"
+        name={["style", "backgroundColor"]}
         rules={[
           {
             pattern: /^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/,
@@ -60,31 +61,15 @@ export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
       >
         <ColorSetter />
       </Form.Item>
-      <Box
-        width="100%"
-        gridColumnGap={20}
-        gridTemplateColumns="1fr 1fr"
-        display="grid"
-      >
-        <Form.Item label="宽度" name="width">
-          <InputNumberSetter width="100%" />
-        </Form.Item>
-
-        <Form.Item label="高度" name="height">
-          <InputNumberSetter precision={2} min={0} width="100%" />
-        </Form.Item>
-      </Box>
-      <Form.Item noStyle label="overflowX">
+      <Form.Item label="overflowX">
         <Box width="100%" display="flex" justifyContent="space-between">
-          <Form.Item name="overflowX">
+          <Form.Item noStyle name="overflowX">
             <Segmented
               options={OverflowSegmented}
-              onResize={undefined}
-              onResizeCapture={undefined}
             />
           </Form.Item>
 
-          <Form.Item name="overflowX">
+          <Form.Item noStyle name="overflowX">
             <Select
               bordered={false}
               defaultValue="auto"
@@ -95,15 +80,13 @@ export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
       </Form.Item>
       <Form.Item label="overflowY">
         <Box width="100%" display="flex" justifyContent="space-between">
-          <Form.Item name="overflowY">
+          <Form.Item noStyle name="overflowY">
             <Segmented
               options={OverflowSegmented}
-              onResize={undefined}
-              onResizeCapture={undefined}
             />
           </Form.Item>
 
-          <Form.Item name="overflowY">
+          <Form.Item noStyle name="overflowY">
             <Select
               bordered={false}
               defaultValue="auto"
@@ -112,6 +95,6 @@ export const LayoutGroupSettings = (props: Partial<CollapsePanelProps>) => {
           </Form.Item>
         </Box>
       </Form.Item>
-    </Collapse.Panel>
+      </SetterContainer>
   );
 };
