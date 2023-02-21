@@ -1,4 +1,4 @@
-import { Collapse } from "antd";
+import { Card, Collapse } from "antd";
 
 export interface SetterContainerProps {
   header: string;
@@ -8,13 +8,21 @@ export interface SetterContainerProps {
 
 export const SetterContainer = (props: SetterContainerProps) => {
   return (
-    <Collapse bordered={false}>
+    <Collapse bordered={false} size="small">
       <Collapse.Panel
         key={props.header}
         header={props.header}
         extra={props.extra}
+        style={{
+        }}
       >
-        {props.children}
+        <div style={{
+          boxSizing: 'border-box',
+          paddingBottom: 0,
+          height: '100%'
+        }} >
+          {props.children}
+        </div>
       </Collapse.Panel>
     </Collapse>
   );

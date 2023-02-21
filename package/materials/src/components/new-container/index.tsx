@@ -6,16 +6,13 @@ import { useEditor, useNode } from '@craftjs/core'
 import { default as Settings } from './settings'
 
 export interface ContainerV2Props {
-  style?: React.CSSProperties;
-  className?: string;
+  style?: React.CSSProperties,
   children?: React.ReactNode;
   initialWidth?: string | number;
   initialHeight?: string | number;
 }
 
-export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
-  console.log(props, 'props')
-
+export const ContainerV2: UserComponent<ContainerV2Props & React.CSSProperties> = ({children, initialWidth, initialHeight, style, ...styleProps}) => {
   const resizable = React.useRef<any>(null);
 
   const {
@@ -30,17 +27,20 @@ export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
   const handleResizableChange: ResizeCallback = (event, direction, elRef, delta) => {
     const { width, height } = elRef.style
     setProp((prop: Record<string, any>) => {
-      prop.style.width = width
-      prop.style.height = height
+      prop.width = width
+      prop.height = height
     }, 400)
   }
 
   return (
     <Resizable
-      style={{...props?.style}}
+      style={{
+        ...style,
+        ...styleProps
+      }}
       defaultSize={{
-        width:  props.initialWidth || '100%',
-        height: props.initialHeight || '100%',
+        width:  initialWidth || '100%',
+        height: initialHeight || '100%',
       }}
       bounds="parent"
       enable={{
@@ -61,7 +61,7 @@ export const ContainerV2: UserComponent<ContainerV2Props> = (props) => {
       }}
       onResize={handleResizableChange}
     >
-      {props.children}
+      {children}
       <IndicatorRound show={active} />
     </Resizable>
   );

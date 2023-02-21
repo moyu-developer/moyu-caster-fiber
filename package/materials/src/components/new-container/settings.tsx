@@ -1,10 +1,17 @@
-import { Card, Collapse } from "antd";
-import { ContainerSizeSetter } from '@/setter/container-size'
+import { Card, Collapse, Space } from "antd";
+import { ContainerSizeSetter } from "@/setter/container-size";
+import { LayoutGroupSettings } from '@/reference/LayoutGroup'
 
 export default function () {
   return (
-    <Collapse bordered={false} >
-      <ContainerSizeSetter/>
-    </Collapse>
-  )
+    <Space
+      direction="vertical"
+      style={{
+        width: "100%",
+      }}
+    >
+      <ContainerSizeSetter />
+      <LayoutGroupSettings/>
+    </Space>
+  );
 }
