@@ -12,12 +12,15 @@ export const useStyles = () => {
       height: "100%",
       background: token.colorBgContainerDisabled,
       display: "grid",
-      gridTemplateRows: '45px 1fr'
+      gridTemplateRows: '45px 1fr',
     }),
     canvas: css({
       height: "100%",
       width: '100%',
       padding: `30px ${token.paddingSM}px`,
+      display: 'flex',
+      justifyContent: 'center',
+      overflow: 'auto'
     }),
     toolbox: css({}),
 

@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Card, Layout, Spin, theme } from "antd";
+import { Card, Layout, Drawer, theme } from "antd";
 import { Frame, Element, useEditor } from "@craftjs/core";
 import { Container } from "@caster-fiber/materials";
+import App from './console'
 import { css } from "@emotion/css";
 
 export function Canvas(): JSX.Element {
@@ -12,7 +13,9 @@ export function Canvas(): JSX.Element {
       className={css({
         padding: token.paddingMD,
         height: "100%",
-        overflow: 'scroll'
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        position: 'relative',
       })}
     >
       <div
